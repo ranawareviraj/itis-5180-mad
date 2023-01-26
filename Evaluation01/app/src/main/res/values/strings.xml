@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Evaluation01</string>
+    <string name="divide">/</string>
+    <string name="hint_number_a">Enter A</string>
+    <string name="hint_number_b">Enter B</string>
+    <string name="equals">=</string>
+    <string name="inital_result">N/A</string>
+    <string name="button_calculate">Calculate</string>
+    <string name="button_Reset">Reset</string>
+</resources>

@@ -23,40 +23,11 @@ public class MainActivity extends AppCompatActivity {
         discountPercentage = findViewById(R.id.discounted_percent_value);
         discountedPrice = findViewById(R.id.discounted_price_value);
 
-        findViewById(R.id.discount_percent_5).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                calculateAndDisplay(5.00);
-            }
-        });
-
-        findViewById(R.id.discount_percent_10).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                calculateAndDisplay(10.00);
-            }
-        });
-
-        findViewById(R.id.discount_percent_15).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                calculateAndDisplay(15.00);
-            }
-        });
-
-        findViewById(R.id.discount_percent_20).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                calculateAndDisplay(20.00);
-            }
-        });
-
-        findViewById(R.id.discount_percent_50).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                calculateAndDisplay(50.00);
-            }
-        });
+        findViewById(R.id.discount_percent_5).setOnClickListener((view) -> calculateAndDisplay(5.00));
+        findViewById(R.id.discount_percent_10).setOnClickListener((view) -> calculateAndDisplay(10.00));
+        findViewById(R.id.discount_percent_15).setOnClickListener((view) -> calculateAndDisplay(15.00));
+        findViewById(R.id.discount_percent_20).setOnClickListener((view) -> calculateAndDisplay(20.00));
+        findViewById(R.id.discount_percent_50).setOnClickListener((view) -> calculateAndDisplay(50.00));
 
         findViewById(R.id.clear_button).setOnClickListener(new View.OnClickListener() {
             @Override
