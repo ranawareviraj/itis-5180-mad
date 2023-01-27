@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Week02_Implicit_Intent</string>
+    <string name="go_to_second_activity">Go to Second Activity</string>
+    <string name="close_second_activity">Close</string>
+</resources>
