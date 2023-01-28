@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">DataPassing</string>
+    <string name="second_activity">Second Activity</string>
+    <string name="move_to_second_activity">Move To Second Activity</string>
+</resources>
