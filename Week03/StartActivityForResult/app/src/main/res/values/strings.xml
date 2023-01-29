@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Start Activity For Result</string>
+    <string name="hi_there">Hi There !</string>
+    <string name="go_to_second_activity">Go to second activity</string>
+    <string name="textviewFirst">First Activity</string>
+    <string name="goBack">Go Back</string>
+    <string name="text_view_second">Second Activity</string>
+    <string name="go_back_button">Go Back</string>
+    <string name="cancel_button">Cancel</string>
+    <string name="enter_your_name">Enter Your Name</string>
+</resources>
