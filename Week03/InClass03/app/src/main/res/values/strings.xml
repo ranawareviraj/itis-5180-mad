@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">InClass03</string>
+    <string name="welcome">Welcome</string>
+    <string name="register">Register</string>
+    <string name="welcome_image">Welcome Image</string>
+    <string name="id">ID:</string>
+    <string name="computerscience">ComputerScience</string>
+    <string name="software_info_systems">Software Info. Systems</string>
+    <string name="bio_informatics">Bio Informatics</string>
+    <string name="data_science">Data Science</string>
+    <string name="select">Select</string>
+    <string name="cancel">Cancel</string>
+    <string name="enter_id">Enter Id</string>
+    <string name="name">Name:</string>
+    <string name="enter_name">Enter Name</string>
+    <string name="email">Email:</string>
+    <string name="enter_email">Enter Email</string>
+    <string name="dept">Dept:</string>
+    <string name="buttonSelectDept">Select</string>
+    <string name="submit">Submit</string>
+    <string name="id_label">ID:</string>
+    <string name="dept_label">Dept:</string>
+    <string name="email_label">Email:</string>
+    <string name="name_label">Name:</string>
+</resources>
