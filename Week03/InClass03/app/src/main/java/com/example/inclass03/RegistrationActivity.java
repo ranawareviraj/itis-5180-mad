@@ -22,7 +22,8 @@ public class RegistrationActivity extends AppCompatActivity {
                         @Override
                         public void onActivityResult(ActivityResult result) {
                             if (result != null && result.getResultCode() == RESULT_OK) {
-                                if (result.getData() != null && result.getData().getStringExtra(SelectDepartmentActivity.DEPARTMENT_NAME) != null) {
+                                if (result.getData() != null &&
+                                        result.getData().getStringExtra(SelectDepartmentActivity.DEPARTMENT_NAME) != null) {
                                     textViewDepartment.setText("" + result.getData().getStringExtra(SelectDepartmentActivity.DEPARTMENT_NAME));
                                 }
                             }
