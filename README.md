@@ -137,6 +137,103 @@ builder.setTitle("Error")
   }
 ```
 
+## Pass serializable - object
+**Data to pass - User**
+```
+  class User implements Serializable{
+    String name;
+    int age;
+
+    User(String name, int age){
+      this.name = name;
+      this.age = age;
+    }
+  }
+```
+
+**Pass Data using Intent - in source activity**
+  ```
+  Intent intent = new IntenMainActivity.this, SecondActivity.class); 
+  User user = new User("Viraj Ranaware", 28)
+  intent.putExtra(User_KEY, user);
+  
+  // Switch to Activity specified
+  startActivity(intent);
+  ```
+
+**Recieve data - in target activity**
+```
+    if (getIntent() != null && getIntent().getExtras() != null && getIntent().hasExtra(NAME_KEY)){
+      User user = (User) getIntent().getSerializableExtra(USER_KEY);
+      String name = user.name;
+      textViewGreeting.setText("Hello " + name + " !");
+      Log.d(MainActivity.TAG, "onCreate: User retrieved");
+    }
+```
+
+## Pass serializable - List<Object>
+Object must be serializable.
+
+**Data to pass - List of Serializable Objects(Users)**
+```
+  ArrayList<User> users = new ArrayList<>();
+  users.add(new User("Alice", 22));
+  users.add(new User("Bob", 24));
+```
+
+**Pass Data using Intent - in source activity**
+  ```
+  public void onClick(View v) {
+    Intent intent = new IntenMainActivity.this, SecondActivity.class); 
+    //Pass List
+    ArrayList<User> users = new ArrayList<>();
+    users.add(new User("Alice", 22));
+    users.add(new User("Bob", 24));
+    intent.putExtra(USERS_KEY, users);
+
+    // Switch to Activity specified
+    startActivity(intent);
+  }
+  ```
+
+**Recieve data - in target activity**
+```
+// Retrieving List<Object>
+  if (getIntent() != null && getIntent().getExtras() != null && getIntent().hasExtra(USERS_KEY)){
+    List<User> users = (List<User>) getIntent().getSerializableExtra(USERS_KEY);
+    Collections.shuffle(users);
+    User user = users.get(0);
+    String name = user.name;
+    textViewGreeting.setText("Hello " + name + " !");
+    Log.d(MainActivity.TAG, "onCreate: User retrieved");
+  }
+```
+
+## Recieve Data from launched activity
+  ### Start Activity for result
+
+**ActivityResultContract - In Original Activity**  
+```
+ActivityResultLauncher<Intent> startForSetProfile = registerForActivityResult(
+    new ActivityResultContracts.StartActivityForResult(), 
+    new ActivityResultCallback<ActivityResult>() {
+      @Override
+      public void onActivityResult(ActivityResult result) {
+        if(result != null && result.getResultCode() == RESULT_OK){
+          if(result.getData() != null && result.getData().getSerializableExtra(PROFILE_KEY) != null){
+            Log.d("demo","in set Profile");
+            profile = (Profile) result.getData().getSerializableExtra(MainActivity.PROFILE_KEY);
+            textViewWeightValue.setText(profile.weight);     
+          }
+        } 
+      }
+    });
+```
+
+## Exceptions
+  
+ 
+
 **Table Example:**
 
 | Description | Score |
