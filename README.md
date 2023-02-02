@@ -172,14 +172,16 @@ builder.setTitle("Error")
   ```
 
 ## Pass serializable - List<Object>
+
 Object must be serializable.
 
+
 **Data to pass - List of Serializable Objects(Users)**
-  ```
+```
     ArrayList<User> users = new ArrayList<>();
     users.add(new User("Alice", 22));
     users.add(new User("Bob", 24));
-  ```
+```
 
 **Pass Data using Intent - in source activity**
   ```
