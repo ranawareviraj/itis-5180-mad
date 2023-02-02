@@ -163,12 +163,12 @@ builder.setTitle("Error")
 
 **Recieve data - in target activity**
   ```
-    if (getIntent() != null && getIntent().getExtras() != null && getIntent().hasExtra(NAME_KEY)){
-      User user = (User) getIntent().getSerializableExtra(USER_KEY);
-      String name = user.name;
-      textViewGreeting.setText("Hello " + name + " !");
-      Log.d(MainActivity.TAG, "onCreate: User retrieved");
-    }
+  if (getIntent() != null && getIntent().getExtras() != null && getIntent().hasExtra(NAME_KEY)){
+    User user = (User) getIntent().getSerializableExtra(USER_KEY);
+    String name = user.name;
+    textViewGreeting.setText("Hello " + name + " !");
+    Log.d(MainActivity.TAG, "onCreate: User retrieved");
+  }
   ```
 
   
