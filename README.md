@@ -213,8 +213,8 @@ Object must be serializable.
   ### Start Activity for result
 
 **ActivityResultContract - In Original Activity**  
-```
-ActivityResultLauncher<Intent> startForSetProfile = registerForActivityResult(
+  ```
+  ActivityResultLauncher<Intent> startForSetProfile = registerForActivityResult(
     new ActivityResultContracts.StartActivityForResult(), 
     new ActivityResultCallback<ActivityResult>() {
       @Override
@@ -228,7 +228,7 @@ ActivityResultLauncher<Intent> startForSetProfile = registerForActivityResult(
         } 
       }
     });
-```
+  ```
 
 ## Exceptions
   
