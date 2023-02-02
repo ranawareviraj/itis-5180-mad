@@ -115,6 +115,28 @@ builder.setTitle("Error")
     </intent-filter>
 ```
 
+## Pass Data using Intent
+
+**Data to pass**
+```
+  final static public String NAME_KEY = "Name";
+```
+
+**Pass Data using Intent - in source activity**
+  ```
+  Intent intent = new IntenMainActivity.this, SecondActivity.class); 
+  intent.putExtra(NAME_KEY, "Viraj Ranaware");
+  String name = getIntent().getStringExtra(MainActivity.NAME_KEY);
+  ```
+
+**Recieve data - in target activity**
+```
+  if(getIntent() != null && getIntent().getExtras() != null && getIntent().hasExtra("Name")){
+    String name = getIntent().getStringExtra(MainActivity.NAME_KEY); 
+    nameText.setText(name);
+  }
+```
+
 **Table Example:**
 
 | Description | Score |
