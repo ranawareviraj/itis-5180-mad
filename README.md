@@ -103,7 +103,7 @@ builder.setTitle("Error")
 
 
 **Implicit Intent**
-```
+  ```
   // In Source Activivity class
   Intent intent = new Intent("com.example.practiceapp.intent.action.View"); 
   intent.addCategory(Intent.CATEGORY_DEFAULT);
@@ -113,14 +113,14 @@ builder.setTitle("Error")
       <action android:name="com.example.practiceapp.intent.action.View">
       </action> <category android:name="android.intent.category.DEFAULT" />
     </intent-filter>
-```
+  ```
 
 ## Pass Data using Intent
 
 **Data to pass**
-```
+  ```
   final static public String NAME_KEY = "Name";
-```
+  ```
 
 **Pass Data using Intent - in source activity**
   ```
@@ -130,16 +130,16 @@ builder.setTitle("Error")
   ```
 
 **Recieve data - in target activity**
-```
+  ```
   if(getIntent() != null && getIntent().getExtras() != null && getIntent().hasExtra("Name")){
     String name = getIntent().getStringExtra(MainActivity.NAME_KEY); 
     nameText.setText(name);
   }
-```
+  ```
 
 ## Pass serializable - object
 **Data to pass - User**
-```
+  ```
   class User implements Serializable{
     String name;
     int age;
@@ -149,7 +149,7 @@ builder.setTitle("Error")
       this.age = age;
     }
   }
-```
+  ```
 
 **Pass Data using Intent - in source activity**
   ```
@@ -162,52 +162,52 @@ builder.setTitle("Error")
   ```
 
 **Recieve data - in target activity**
-```
+  ```
     if (getIntent() != null && getIntent().getExtras() != null && getIntent().hasExtra(NAME_KEY)){
       User user = (User) getIntent().getSerializableExtra(USER_KEY);
       String name = user.name;
       textViewGreeting.setText("Hello " + name + " !");
       Log.d(MainActivity.TAG, "onCreate: User retrieved");
     }
-```
+  ```
 
 ## Pass serializable - List<Object>
 Object must be serializable.
 
 **Data to pass - List of Serializable Objects(Users)**
-```
-  ArrayList<User> users = new ArrayList<>();
-  users.add(new User("Alice", 22));
-  users.add(new User("Bob", 24));
-```
+  ```
+    ArrayList<User> users = new ArrayList<>();
+    users.add(new User("Alice", 22));
+    users.add(new User("Bob", 24));
+  ```
 
 **Pass Data using Intent - in source activity**
   ```
   public void onClick(View v) {
     Intent intent = new IntenMainActivity.this, SecondActivity.class); 
     //Pass List
-    ArrayList<User> users = new ArrayList<>();
-    users.add(new User("Alice", 22));
-    users.add(new User("Bob", 24));
-    intent.putExtra(USERS_KEY, users);
+      ArrayList<User> users = new ArrayList<>();
+      users.add(new User("Alice", 22));
+      users.add(new User("Bob", 24));
+      intent.putExtra(USERS_KEY, users);
 
-    // Switch to Activity specified
-    startActivity(intent);
-  }
-  ```
+      // Switch to Activity specified
+      startActivity(intent);
+    }
+    ```
 
 **Recieve data - in target activity**
-```
-// Retrieving List<Object>
-  if (getIntent() != null && getIntent().getExtras() != null && getIntent().hasExtra(USERS_KEY)){
-    List<User> users = (List<User>) getIntent().getSerializableExtra(USERS_KEY);
-    Collections.shuffle(users);
-    User user = users.get(0);
-    String name = user.name;
-    textViewGreeting.setText("Hello " + name + " !");
-    Log.d(MainActivity.TAG, "onCreate: User retrieved");
-  }
-```
+  ```
+  // Retrieving List<Object>
+    if (getIntent() != null && getIntent().getExtras() != null && getIntent().hasExtra(USERS_KEY)){
+      List<User> users = (List<User>) getIntent().getSerializableExtra(USERS_KEY);
+      Collections.shuffle(users);
+      User user = users.get(0);
+      String name = user.name;
+      textViewGreeting.setText("Hello " + name + " !");
+      Log.d(MainActivity.TAG, "onCreate: User retrieved");
+    }
+  ```
 
 ## Recieve Data from launched activity
   ### Start Activity for result
