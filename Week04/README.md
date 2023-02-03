@@ -21,8 +21,10 @@ To enable View Binding add below snnipet in build.gradle file.
 
 ### Use view binding in activities
 To set up an instance of the binding class for use with an activity, perform the following steps in the activity's onCreate() method:
+
     Step 1. Call the static inflate() method to create an instance of the binding class for the activity to use.
-    Step 2. Get a reference to the root view by calling the getRoot() method and Pass it to setContentView() to make it the active view on the screen.
+    Step 2. Get a reference to the root view by calling the getRoot() method
+    Step 3. Pass it to setContentView() to make it the active view on the screen.
  
  ```
     private MainActivityBinding binding;
@@ -31,7 +33,8 @@ To set up an instance of the binding class for use with an activity, perform the
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = MainActivityBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot(););
+        View rootView = binding.getRoot();
+        setContentView(rootView);
     }
  ```
 **Using Binding to reference any of the view
@@ -54,7 +57,7 @@ To set up an instance of the binding class for use with a fragment, perform the 
     Step 2. Get a reference to the root view by calling the getRoot() method.
     Step 3. Return the root view from the onCreateView() method to make it the active view on the screen.
 
-**Using view binding in fragments
+**Using View Binding in Fragments
  ```
     private ResultProfileBinding binding;
 
