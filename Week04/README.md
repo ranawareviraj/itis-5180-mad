@@ -11,17 +11,68 @@ To enable View Binding add below snnipet in build.gradle file.
 
 **Enabling View Binding**
 ```
-android {
-    ...
-    buildFeatures {
-        viewBinding true
+    android {
+        ...
+        buildFeatures {
+            viewBinding true
+        }
     }
-}
 ```
 
+### Use view binding in activities
+To set up an instance of the binding class for use with an activity, perform the following steps in the activity's onCreate() method:
+    Step 1. Call the static inflate() method to create an instance of the binding class for the activity to use.
+    Step 2. Get a reference to the root view by calling the getRoot() method and Pass it to setContentView() to make it the active view on the screen.
  
- 
+ ```
+    private MainActivityBinding binding;
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        binding = MainActivityBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot(););
+    }
+ ```
+**Using Binding to reference any of the view
+ ```
+    // Using binding for a TextView
+     binding.getName().setText(viewModel.getName());
+     
+     // Using binding for a Button
+     binding.getButton().setOnClickListener(new View.OnClickListener() {
+        viewModel.userClicked()
+     });
+ ```
+
+Note: With binding we dont need to specify view type.
+
+### Use view binding in fragments
+To set up an instance of the binding class for use with a fragment, perform the following steps in the fragment's onCreateView() method:
+
+    Step 1. Call the static inflate() method of the binding class to create an instance of the binding class for the fragment to use.
+    Step 2. Get a reference to the root view by calling the getRoot() method.
+    Step 3. Return the root view from the onCreateView() method to make it the active view on the screen.
+
+**Using view binding in fragments
+ ```
+    private ResultProfileBinding binding;
+
+    @Override
+    public View onCreateView (LayoutInflater inflater,
+                              ViewGroup container,
+                              Bundle savedInstanceState) {
+        binding = ResultProfileBinding.inflate(inflater, container, false);
+        View view = binding.getRoot();
+        return view;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
+ ```
 **Table Example:**
 
 | col1 | col2 |
