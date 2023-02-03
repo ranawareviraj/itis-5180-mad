@@ -37,7 +37,7 @@ To set up an instance of the binding class for use with an activity, perform the
         setContentView(rootView);
     }
  ```
-**Using Binding to reference any of the view
+**Using Binding to reference any of the view**
  ```
     // Using binding for a TextView
      binding.getName().setText(viewModel.getName());
@@ -52,12 +52,13 @@ Note: With binding we dont need to specify view type.
 
 ### Use view binding in fragments
 To set up an instance of the binding class for use with a fragment, perform the following steps in the fragment's onCreateView() method:
-
+ ```
     Step 1. Call the static inflate() method of the binding class to create an instance of the binding class for the fragment to use.
     Step 2. Get a reference to the root view by calling the getRoot() method.
     Step 3. Return the root view from the onCreateView() method to make it the active view on the screen.
-
-**Using View Binding in Fragments
+ ```
+ 
+**Using View Binding in Fragments**
  ```
     private ResultProfileBinding binding;
 
@@ -76,6 +77,7 @@ To set up an instance of the binding class for use with a fragment, perform the 
         binding = null;
     }
  ```
+ 
 **Table Example:**
 
 | col1 | col2 |
