@@ -117,6 +117,7 @@ builder.setTitle("Error")
 
 ## Pass Data using Intent
 
+### 1. Pass data in KEY-VALUE Format
 **Data to pass**
   ```
   final static public String NAME_KEY = "Name";
@@ -137,7 +138,7 @@ builder.setTitle("Error")
   }
   ```
 
-## Pass serializable - object
+### 2. Pass serializable - object
 **Data to pass - User**
   ```
   class User implements Serializable{
@@ -171,7 +172,7 @@ builder.setTitle("Error")
   }
   ```
 
-## Pass serializable - List of Objects
+### 3. Pass serializable - List of Objects
   Object must be serializable. Use below code in the source activity to pass the data to the target activity
 
 
@@ -209,7 +210,10 @@ builder.setTitle("Error")
     }
   ```
 ## Recieve Data from launched activity
-  ### Start Activity for result
+
+  ### 1. Start Activity for result (Deprecated)
+  
+  ### 2. Using ActivityResultContract
   
 **ActivityResultContract - In Original Activity**  
   ```
