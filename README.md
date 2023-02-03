@@ -238,7 +238,7 @@ builder.setTitle("Error")
 
 **Table Example:**
 
-| Description | Score |
+| col1 | col2 |
 | ----------- | ----- |
-|Street	      | 0.872 |
-|Snapshot	    | 0.852 |
+|row1	      | row1 |
+|row2	    | row1 |
