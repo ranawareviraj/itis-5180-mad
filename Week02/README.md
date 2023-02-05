@@ -1,8 +1,8 @@
 # Mobile Application Development
-## Views and Activities
+## Views, Logging and Exceptions
 ### Author: Viraj Ranaware
 
-Welcome to the itis-5180-mad wiki! This repository contains all basics of Android Application development using java along with samples.
+This module introduces Views and other basic concepts.
 
 ### Views:
   - TextView
@@ -159,34 +159,6 @@ builder.setTitle("Error")
 
     //Display Alert
     builder.create().show();
-```
-
-## Activity Lifecycle
-**Activity Lifecycle Methods**
-```
-  @Override
-  protected void onResume() {
-    super.onResume();
-    Log.d(TAG, "On resume");
-  }
-
-  @Override
-  protected void onDestroy() {
-    super.onDestroy();
-    Log.d(TAG, "On destory");
-  }
-
-  @Override
-  protected void onPause() {
-    super.onPause();
-    Log.d(TAG, "On pause");
-  }
-
-  @Override
-  protected void onStop() {
-    super.onStop();
-    Log.d(TAG, "On stop");
-  }
 ```
 
 ## Exceptions
