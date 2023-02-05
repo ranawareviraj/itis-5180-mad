@@ -10,6 +10,7 @@ Welcome to the itis-5180-mad wiki! This repository contains all basics of Androi
   - Button
   - RadioGroup
   - Seekbar/Slider
+  - ImageView
 
 
 **TextView**
@@ -119,19 +120,24 @@ Welcome to the itis-5180-mad wiki! This repository contains all basics of Androi
   }
 ```
 
+### Logging
+**LogD**
+```
+  Log.d(TAG, "OnCreate: ");
+```
 
 **Toast**
 ```
-import android.widget.Toast;
+  import android.widget.Toast;
 
-Toast.makeText(MainActivity.this, "Enter a valid ticket price",Toast.LENGTH_SHORT).show();
+  Toast.makeText(MainActivity.this, "Enter a valid ticket price",Toast.LENGTH_SHORT).show();
 ```
 
 **Set Title:**
 ```
-{  
-  setTitle("Main Activity");
-}
+  {  
+    setTitle("Main Activity");
+  }
 ```
 
 **Alert Dialog**
@@ -155,7 +161,8 @@ builder.setTitle("Error")
     builder.create().show();
 ```
 
-**Activity Lifecycle**
+## Activity Lifecycle
+**Activity Lifecycle Methods**
 ```
   @Override
   protected void onResume() { 
@@ -180,10 +187,6 @@ builder.setTitle("Error")
     super.onStop(); 
     Log.d(TAG, "On stop");
   }
-```
-**Set Title**
-```
-  setTitle("Main Activity");
 ```
 
 ## Intent
@@ -374,4 +377,22 @@ builder.setTitle("Error")
     });
   ```
 ## Exceptions
-  
+
+**NumberFormatException**
+```
+    try {
+        double weight = Double.valueOf(editTextWeight.getText().toString());
+        if (weight > 0) {
+            Profile profile = new Profile(weight, gender);
+            Intent intent = new Intent();
+            intent.putExtra(PROFILE_KEY, profile);
+            setResult(RESULT_OK, intent);
+            finish();
+        } else {
+            Toast.makeText(SetProfileActivity.this, "Enter a valid weight", Toast.LENGTH_SHORT).show();
+        }
+    } catch (
+        NumberFormatException ex) {
+        Toast.makeText(SetProfileActivity.this, "Enter a valid weight", Toast.LENGTH_SHORT).show();
+    }
+```
