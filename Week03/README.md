@@ -214,6 +214,52 @@ builder.setTitle("Error")
 
   ### 1. Start Activity for result (Deprecated)
   
+  **startActivityForResult - In Original Activity**  
+  ```
+    // Start Activity for result
+      @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        findViewById(R.id.buttonGoToSecond).setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, SecondActivity.class);
+            startActivityForResult(intent, REQUEST_CODE);
+        });
+    }
+    
+    // Capture Result:
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            if (data != null && data.hasExtra(SecondActivity.NAME)) {
+                textViewProfile.setText("Hi " + data.getStringExtra(SecondActivity.NAME) + " !");
+                Log.d(TAG, "onActivityResult: RESULT_OK");
+            }
+        } else if (resultCode == RESULT_CANCELED) {
+            Log.d(TAG, "onActivityResult: RESULT_CANCELED");
+        }
+    }
+  ```
+  **startActivityForResult - In Second Activity**  
+  ```
+  // Send data back
+  buttonGoBack.setOnClickListener(view -> {
+            Intent intent = new Intent();
+            String name = editTextPersonName.getText().toString();
+            intent.putExtra(NAME, name);
+            setResult(RESULT_OK, intent);
+            finish();
+        });
+
+        buttonCancel.setOnClickListener(view -> {
+            setResult(RESULT_CANCELED);
+            finish();
+        });
+  // HIT Cancel button     
+  ``` 
+  
   ### 2. Using ActivityResultContract
   
 **ActivityResultContract - In Original Activity**  
