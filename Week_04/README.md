@@ -78,9 +78,3 @@ To set up an instance of the binding class for use with a fragment, perform the 
     }
  ```
  
-**Table Example:**
-
-| col1 | col2 |
-| ----------- | ----- |
-|row1	      | row1 |
-|row2	    | row1 |
