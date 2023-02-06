@@ -77,4 +77,9 @@ To set up an instance of the binding class for use with a fragment, perform the 
         binding = null;
     }
  ```
- 
+ ### Add a fragment to an activity
+ **Using View Binding in Fragments**
+Use FragmentContainerView in the Design and select appropriate Fragment class.
+<img width="450" height="200" alt="image" src="https://user-images.githubusercontent.com/112779376/217070607-a7077ea0-c7c8-4cbd-b753-e83b7a0ac943.png"> <img width="450" height="200" alt="image" src="https://user-images.githubusercontent.com/112779376/217070729-1e8070ac-399d-4125-ad29-79b2545114f7.png">
+
+
