@@ -132,3 +132,24 @@ FragmentFirstBinding binding;
         });
     }
  ```
+ ### Sending Data from Fragment to Activity
+ ```
+ 
+ ```
+  
+  
+ ```
+ 
+ ```
+
+
+  
+ ```
+ ```
+
+  
+ ```
+ ```
+  
+ ```
+ ```
