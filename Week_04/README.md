@@ -132,24 +132,67 @@ FragmentFirstBinding binding;
         });
     }
  ```
+ **onAttach() - called when Fragment is attached to the Activity**
+ ```
+  @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);                    // context = Activity
+    }
+ ```
  ### Sending Data from Fragment to Activity
- ```
- 
- ```
-  
-  
- ```
- 
- ```
+This is done using an interface.
+```
+    Step 1: Define interface(Listener) in the Fragment
+    Step 2: Activity implemnts the Interface
+    Step 3: In the fragment, cast context(activity) to listener.
+    Step 4: User listner to send data back.
+```
 
 
-  
+
+ **Step 1: Define interface in the Fragment**
  ```
+     public interface FirstListener {
+        void sendUsername(String username);
+    }
  ```
 
-  
- ```
- ```
-  
- ```
- ```
+**Step 2: Activity implemnts the Interface**
+```
+     public class MainActivity extends AppCompatActivity implements FirstFragment.FirstListener {
+         @Override
+        public void sendUsername(String username) {
+            Log.d(TAG, "sendUsername: " + username);
+        }
+     }
+```
+**Step 3: In the fragment, cast context(activity) to listener.* 
+```
+    FirstListener fListener;
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);                // context = Activity
+        fListener = (FirstListener) context;    // As Activity aka context implements listener, context can be casted back to listener
+    }
+```
+**Step 4: User listner to send data back.**
+```
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        getActivity().setTitle("First Activity");
+
+        binding.button.setOnClickListener(v -> {
+            String name = binding.editTextUsername.getText().toString();
+            fListener.sendUsername(name);
+        });
+    }
+```
+**Step 5: Capture data in the activity - Step 3 can be extended if needed**
+```
+    @Override
+    public void sendUsername(String username) {
+        Log.d(TAG, "sendUsername: " + username);
+    }
+```
