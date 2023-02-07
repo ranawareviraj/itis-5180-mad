@@ -98,5 +98,37 @@ Use FragmentContainerView in the Design and select appropriate Fragment class.
                 .commit();
     }
  ```
+### Fragment Methods
+**onCreate()** 
+ ```
+   @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+ ```
  
+ **onCreateView() : initialize binding, return content root** 
+ ```
+FragmentFirstBinding binding;
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        binding = FragmentFirstBinding.inflate(inflater, container, false);
+        return binding.getRoot();
+    }
+ ```
  
+ **onViewCreated() : Logic to work with the fragment** 
+ ```
+ @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        getActivity().setTitle("First Activity");
+
+        binding.button.setOnClickListener(v -> {
+            String name = binding.editTextUsername.getText().toString();
+            Toast.makeText(getActivity(), "Hello " + name + " !", Toast.LENGTH_SHORT).show();
+        });
+    }
+ ```
