@@ -197,3 +197,24 @@ This is done using an interface.
         Log.d(TAG, "sendUsername: " + username);
     }
 ```
+
+### We can use interface method to replace Fragment
+
+**In First Fragment - Interface has goToSecondFragment() method
+```
+    public interface FirstListener {
+        void sendUsername(String username);
+        void goToSecondFragment();
+    }
+```
+**In MainActivty - implement goToSecondFragment() method to replace Fragment with Second Fragment
+```
+    @Override
+    public void goToSecondFragment() {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.contentView, new SecondFragment())   // Replace Activity view with SecondFragment
+                .addToBackStack(null)                              // Go back will take to previous view
+                .commit();
+    }
+```
