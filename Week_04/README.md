@@ -149,8 +149,6 @@ This is done using an interface.
     Step 5: Capture data in the activity - Step 3 can be extended if needed
 ```
 
-
-
 **Step 1: Define interface in the Fragment**
  ```
      public interface FirstListener {
@@ -197,6 +195,49 @@ This is done using an interface.
         Log.d(TAG, "sendUsername: " + username);
     }
 ```
+### Sending Data from Fragment to Activity - Objects
+```
+//  Step 1: Define interface(Listener) in the Fragment
+     public interface FirstListener {
+            void sendProfile(Profile profile);
+     }
+ 
+//  Step 2: Activity implemnts the Interface
+    public class MainActivity extends AppCompatActivity 
+                              implements FirstFragment.FirstListener {
+    }
+    
+//  Step 3: In the fragment, cast context(activity) to listener.
+    FirstListener fListener;
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);                // context = Activity
+        fListener = (FirstListener) context;    // As Activity aka context implements listener, context can be casted back to listener
+    }
+    
+//  Step 4: User listner to send data back.
+    binding.buttonSubmit.setOnClickListener(v -> {
+            String name = binding.editTextUsername.getText().toString();
+            if (name.isEmpty()) {
+                Toast.makeText(getActivity(), "Enter Valid usename", Toast.LENGTH_SHORT).show();
+            } else {
+                try {
+                    double age = Double.parseDouble(binding.editTextAge.getText().toString());
+                    Profile profile = new Profile(name, age);
+                    fListener.sendProfile(profile);
+                } catch (NumberFormatException exception) {
+                    Toast.makeText(getActivity(), "Enter valid age", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+//  Step 5: Capture data in the activity - Step 3 can be extended if needed
+    @Override
+    public void sendProfile(Profile profile) {
+        Log.d(TAG, "sendProfile: " + profile);
+    }
+```
 
 ### We can use interface method to replace Fragment
 
@@ -218,3 +259,5 @@ This is done using an interface.
                 .commit();
     }
 ```
+
+Se
