@@ -146,11 +146,12 @@ This is done using an interface.
     Step 2: Activity implemnts the Interface
     Step 3: In the fragment, cast context(activity) to listener.
     Step 4: User listner to send data back.
+    Step 5: Capture data in the activity - Step 3 can be extended if needed
 ```
 
 
 
- **Step 1: Define interface in the Fragment**
+**Step 1: Define interface in the Fragment**
  ```
      public interface FirstListener {
         void sendUsername(String username);
@@ -166,7 +167,7 @@ This is done using an interface.
         }
      }
 ```
-**Step 3: In the fragment, cast context(activity) to listener.* 
+**Step 3: In the fragment, cast context(activity) to listener.**
 ```
     FirstListener fListener;
 
