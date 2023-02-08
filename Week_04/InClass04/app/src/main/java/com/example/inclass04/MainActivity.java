@@ -57,7 +57,6 @@ public class MainActivity extends AppCompatActivity implements WelcomeFragment.W
     @Override
     public void sendDepartment(String department) {
         RegistrationFragment registrationFragment = (RegistrationFragment) getSupportFragmentManager().findFragmentByTag(REGISTRATION_FRAGMENT);
-
         if (registrationFragment != null) {
             registrationFragment.setDepartment(department);
             getSupportFragmentManager().popBackStack();

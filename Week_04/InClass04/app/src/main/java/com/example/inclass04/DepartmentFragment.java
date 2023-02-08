@@ -18,8 +18,7 @@ import com.example.inclass04.databinding.FragmentDepartmentBinding;
 
 public class DepartmentFragment extends Fragment {
 
-    private static final String ARG_PARAM_DEPT = "ARG_PARAM_DEPT";
-    private String mDepartment;
+//    private String mDepartment;
 
     public DepartmentFragment() {
         // Required empty public constructor
@@ -28,9 +27,6 @@ public class DepartmentFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-
-        }
     }
 
     FragmentDepartmentBinding binding;
