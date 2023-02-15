@@ -5,6 +5,7 @@
 ## List View
 Displays a vertically-scrollable collection of views, where each view is positioned immediatelybelow the previous view in the list.
 
+### ListView of Strings:
 **Creating simple ListView**
 ```
   public class MainActivity extends AppCompatActivity {
@@ -33,7 +34,7 @@ Displays a vertically-scrollable collection of views, where each view is positio
           });
 ```
 
-###ListView of Objects:
+### ListView of Objects:
 
 **User Object**
 ```
@@ -73,4 +74,13 @@ Displays a vertically-scrollable collection of views, where each view is positio
           });
       }
   }  
+```
+### Removing/updating items of Strings:
+This can be done by updating list of objects and notifying adapter about uodates.
+```
+   listView.setOnItemClickListener((parent, view, position, id) -> {
+       User user = users.remove(position);
+       userArrayAdapter.notifyDataSetChanged();
+       Log.d("ListView", "Removed used " + users.get(position));
+   });
 ```
