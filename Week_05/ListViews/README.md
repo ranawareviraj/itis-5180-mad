@@ -68,7 +68,7 @@ Displays a vertically-scrollable collection of views, where each view is positio
           listView.setAdapter(userArrayAdapter);
 
           listView.setOnItemClickListener((parent, view, position, id) -> {
-              Log.d("ListView_Demo", "onItemClick, position: " + position + " and color: "
+              Log.d("ListView_Demo", "onItemClick, position: " + position + " and user is: "
                       + userArrayAdapter.getItem(position).name);
           });
       }
