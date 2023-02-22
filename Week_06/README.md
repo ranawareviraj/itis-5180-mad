@@ -78,8 +78,8 @@ To allow http turn on this flag in AndroidManifest.xml under application tag.
         setContentView(R.layout.activity_main);
         createContact("Tango Charlie", "tc@tc.com", "111-222-3333", "CELL");
     }
-    void createContact(String name, String email, String phone, String type) {
     
+    void createContact(String name, String email, String phone, String type) {
         HttpUrl url = HttpUrl.parse("https://www.theappsdr.com")
                 .newBuilder()
                 .addPathSegment("contact")
@@ -98,7 +98,9 @@ To allow http turn on this flag in AndroidManifest.xml under application tag.
                 .url(url)
                 .post(formBody)
                 .build();
+                
         Log.d("API", "createContact: "+ request);
+        
         client.newCall(request).enqueue(new Callback() {
         
         public void onFailure(@NonNull Call call, @NonNull IOException e) {}
