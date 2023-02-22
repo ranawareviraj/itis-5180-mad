@@ -51,3 +51,10 @@ To allow http turn on this flag in AndroidManifest.xml under application tag.
     android:usesCleartextTraffic="true"
  </application
  ```
+ **Build complex URL String**
+ ```
+    HttpUrl url = HttpUrl.parse("https://www.theappsdr.com").newBuilder()
+            .addPathSegment("contacts")
+            .addPathSegment("json")
+            .build();
+ ```
