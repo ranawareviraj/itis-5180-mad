@@ -70,7 +70,17 @@ To allow http turn on this flag in AndroidManifest.xml under application tag.
 
 **Sending POST Request**
  ```
-HttpUrl url = HttpUrl.parse("https://www.theappsdr.com")
+ private final OkHttpClient client = new OkHttpClient();
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        createContact("Tango Charlie", "tc@tc.com", "111-222-3333", "CELL");
+    }
+    void createContact(String name, String email, String phone, String type) {
+    
+        HttpUrl url = HttpUrl.parse("https://www.theappsdr.com")
                 .newBuilder()
                 .addPathSegment("contact")
                 .addPathSegment("json")
