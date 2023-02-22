@@ -19,7 +19,13 @@ Update below configuration in AndroidManifest.xml.
                 .url("https://publicobject.com/helloworld.txt")
                 .build();
 ```
-**Response callback**
+
+**Create OkHttpClient**
+```
+private final OkHttpClient client = new OkHttpClient();
+```
+
+**Set Response callback listener for client**
 ```
         client.newCall(request).enqueue(new Callback() {
             @Override
