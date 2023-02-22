@@ -58,3 +58,12 @@ To allow http turn on this flag in AndroidManifest.xml under application tag.
             .addPathSegment("json")
             .build();
  ```
+  **Build complex URL String - using builder**
+  ```
+  HttpUrl.Builder builder = new HttpUrl.Builder();
+  HttpUrl url = builder.scheme("https")
+          .host("www.theappsdr.com")
+          .addPathSegment("contacts")
+          .addPathSegment("json")
+          .build();
+ ```
