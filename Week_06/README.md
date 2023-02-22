@@ -109,3 +109,13 @@ To allow http turn on this flag in AndroidManifest.xml under application tag.
         }
     });
  ```
+
+**Updating UI after Async API Response**
+```
+ runOnUiThread(new Runnable() {
+     @Override
+     public void run() {
+          System.out.println();
+     }
+ });
+```
