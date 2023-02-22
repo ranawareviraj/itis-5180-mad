@@ -25,8 +25,6 @@ Update below configuration in AndroidManifest.xml.
 private final OkHttpClient client = new OkHttpClient();
 ```
 
-If we dont enque response and use it in main thred directly, app throws android.os.NetworkOnMainThreadException.
-
 **Set Response callback listener for client**
 ```
         client.newCall(request).enqueue(new Callback() {
@@ -44,4 +42,12 @@ If we dont enque response and use it in main thred directly, app throws android.
                 }
             }
         });    
+ ```
+If we dont enque response and use it in main thred directly, app throws android.os.NetworkOnMainThreadException.
+
+To allow http turn on this flag in AndroidManifest.xml under application tag.
+ ```
+ <application
+    android:usesCleartextTraffic="true"
+ </application
  ```
