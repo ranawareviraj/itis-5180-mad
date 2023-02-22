@@ -119,3 +119,30 @@ To allow http turn on this flag in AndroidManifest.xml under application tag.
      }
  });
 ```
+
+**Json Parsing**
+```
+    try {
+         JSONObject jsonObject = new JSONObject(body);
+         Log.d("API", "onResponse: " + jsonObject);
+         JSONArray jsonArray  = jsonObject.getJSONArray(" ");
+         } catch (JSONException e) {
+               throw new RuntimeException(e);
+         }
+```
+**Json Parsing - JSON**
+```
+    try {
+         JSONObject jsonObject = new JSONObject(body);
+         Log.d("API", "onResponse: " + jsonObject);
+         JSONArray jsonArray  = jsonObject.getJSONArray(" ");
+         } catch (JSONException e) {
+               throw new RuntimeException(e);
+         }
+```
+**Json Parsing - GSON**
+```
+  Gson gson = new Gson();
+  Person person = gson.fromJson(responseBody.charStream(), com.example.okhttp.Person.class);
+
+```
