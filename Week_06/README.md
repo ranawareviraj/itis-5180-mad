@@ -143,6 +143,6 @@ To allow http turn on this flag in AndroidManifest.xml under application tag.
 **Json Parsing - GSON**
 ```
   Gson gson = new Gson();
-  Person person = gson.fromJson(responseBody.charStream(), com.example.okhttp.Person.class);
+  Person person = gson.fromJson(responseBody.charStream(), Person.class);
 
 ```
