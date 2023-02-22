@@ -67,3 +67,33 @@ To allow http turn on this flag in AndroidManifest.xml under application tag.
           .addPathSegment("json")
           .build();
  ```
+
+**Sending POST Request**
+ ```
+HttpUrl url = HttpUrl.parse("https://www.theappsdr.com")
+                .newBuilder()
+                .addPathSegment("contact")
+                .addPathSegment("json")
+                .addPathSegment("create")
+                .build();
+
+        FormBody formBody = new FormBody.Builder()
+                .add("name", name)
+                .add("email", email)
+                .add("phone", phone)
+                .add("type", type)
+                .build();
+
+        Request request = new Request.Builder()
+                .url(url)
+                .post(formBody)
+                .build();
+        Log.d("API", "createContact: "+ request);
+        client.newCall(request).enqueue(new Callback() {
+        
+        public void onFailure(@NonNull Call call, @NonNull IOException e) {}
+        
+        public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {}
+        }
+    });
+ ```
