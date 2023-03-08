@@ -84,3 +84,17 @@ This can be done by updating list of objects and notifying adapter about uodates
        Log.d("ListView", "Removed used " + users.get(position));
    });
 ```
+### Binding with ListViews:
+
+**Using Binding with simple ListViews**
+```
+    AppListItemBinding itemBinding;
+
+    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+        if (convertView == null) {
+            itemBinding = AppListItemBinding.inflate(getLayoutInflater(), parent, false);
+            convertView = itemBinding.getRoot();
+            convertView.setTag(itemBinding);
+        }
+        itemBinding = (AppListItemBinding) convertView.getTag();
+```
