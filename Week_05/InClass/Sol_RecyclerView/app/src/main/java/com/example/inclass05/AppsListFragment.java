@@ -6,12 +6,15 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 import com.example.inclass05.databinding.AppListItemBinding;
 import com.example.inclass05.databinding.FragmentAppsListBinding;
@@ -23,7 +26,7 @@ public class AppsListFragment extends Fragment {
     private static final String ARG_PARAM_CATEGORY = "ARG_PARAM_CATEGORY";
     private String mCategory;
     ArrayList<DataServices.App> appArrayList;
-    ArrayAdapter<DataServices.App> adapter;
+    AppsAdapter adapter;
 
     public AppsListFragment() {
         // Required empty public constructor
@@ -60,19 +63,14 @@ public class AppsListFragment extends Fragment {
         getActivity().setTitle("Top Paid Apps");
 
         appArrayList = DataServices.getAppsByCategory(mCategory);
-        adapter = new AppsAdapter(getActivity(), appArrayList);
-        binding.listView.setAdapter(adapter);
+        adapter = new AppsAdapter();
 
-        binding.listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                DataServices.App app = appArrayList.get(position);
-                mListener.sendSelectedApp(app);
-            }
-        });
+        binding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        binding.recyclerView.setAdapter(adapter);
     }
 
     AppsListListener mListener;
+
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
@@ -80,35 +78,56 @@ public class AppsListFragment extends Fragment {
 
     }
 
-    private class AppsAdapter extends ArrayAdapter<DataServices.App> {
+    public interface AppsListListener {
+        void sendSelectedApp(DataServices.App app);
+    }
 
-        public AppsAdapter(@NonNull Context context, @NonNull List<DataServices.App> objects) {
-            super(context, R.layout.app_list_item, objects);
-        }
 
-        AppListItemBinding itemBinding;
+    class AppsAdapter extends RecyclerView.Adapter<AppsAdapter.AppViewHolder> {
 
         @NonNull
         @Override
-        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-            if (convertView == null) {
-                itemBinding = AppListItemBinding.inflate(getLayoutInflater(), parent, false);
-                convertView = itemBinding.getRoot();
-                convertView.setTag(itemBinding);
-            }
-            itemBinding = (AppListItemBinding) convertView.getTag();
-
-            DataServices.App app = getItem(position);
-
-            itemBinding.textViewAppName.setText(app.getName());
-            itemBinding.textViewArtistName.setText(app.getArtistName());
-            itemBinding.textViewReleaseDate.setText(app.getReleaseDate());
-
-            return convertView;
+        public AppsAdapter.AppViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            AppListItemBinding itemBinding = AppListItemBinding.inflate(getLayoutInflater(), parent, false);
+            AppViewHolder holder = new AppViewHolder(itemBinding);
+            return holder;
         }
-    }
 
-    public interface AppsListListener{
-        void sendSelectedApp(DataServices.App app);
+        @Override
+        public void onBindViewHolder(@NonNull AppsAdapter.AppViewHolder holder, int position) {
+            DataServices.App app = appArrayList.get(position);
+            holder.setupUI(app);
+        }
+
+        @Override
+        public int getItemCount() {
+            return appArrayList.size();
+        }
+
+        class AppViewHolder extends RecyclerView.ViewHolder {
+
+            DataServices.App mApp;
+            AppListItemBinding mBinding;
+
+            public AppViewHolder(@NonNull AppListItemBinding binding) {
+                super(binding.getRoot());
+                mBinding = binding;
+                itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mListener.sendSelectedApp(mApp);
+                    }
+                });
+
+            }
+
+            void setupUI(DataServices.App app) {
+                mApp = app;
+                mBinding.textViewAppName.setText(mApp.getName());
+                mBinding.textViewArtistName.setText(mApp.getArtistName());
+                mBinding.textViewReleaseDate.setText(mApp.getReleaseDate());
+            }
+        }
+
     }
 }

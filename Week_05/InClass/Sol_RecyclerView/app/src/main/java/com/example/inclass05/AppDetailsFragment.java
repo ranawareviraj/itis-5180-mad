@@ -66,4 +66,5 @@ public class AppDetailsFragment extends Fragment {
         binding.listView.setAdapter(adapter);
 
     }
+
 }
