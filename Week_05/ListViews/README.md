@@ -48,7 +48,7 @@ Displays a vertically-scrollable collection of views, where each view is positio
       }
   }  
 ```
-**Displaying ListView of Object**
+**Displaying ListView of Object - Simple ListView**
 ```
   public class MainActivity extends AppCompatActivity {
       @Override
@@ -75,17 +75,6 @@ Displays a vertically-scrollable collection of views, where each view is positio
       }
   }  
 ```
-### Removing/updating items of Strings:
-This can be done by updating list of objects and notifying adapter about uodates.
-```
-   listView.setOnItemClickListener((parent, view, position, id) -> {
-       User user = users.remove(position);
-       userArrayAdapter.notifyDataSetChanged();
-       Log.d("ListView", "Removed used " + users.get(position));
-   });
-```
-### Binding with ListViews:
-
 **Using Binding with simple ListViews**
 ```
     AppListItemBinding itemBinding;
@@ -97,4 +86,75 @@ This can be done by updating list of objects and notifying adapter about uodates
             convertView.setTag(itemBinding);
         }
         itemBinding = (AppListItemBinding) convertView.getTag();
+```
+
+**Displaying ListView of Object - RecyclerView**
+```
+   @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        appArrayList = DataServices.getAppsByCategory(mCategory);
+        adapter = new AppsAdapter();
+
+        binding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        binding.recyclerView.setAdapter(adapter);
+    }
+    
+    //Adapter With Holder pattern Integrated
+    class AppsAdapter extends RecyclerView.Adapter<AppsAdapter.AppViewHolder> {
+
+        @NonNull
+        @Override
+        public AppsAdapter.AppViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            AppListItemBinding itemBinding = AppListItemBinding.inflate(getLayoutInflater(), parent, false);
+            AppViewHolder holder = new AppViewHolder(itemBinding);
+            return holder;
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull AppsAdapter.AppViewHolder holder, int position) {
+            DataServices.App app = appArrayList.get(position);
+            holder.setupUI(app);
+        }
+
+        @Override
+        public int getItemCount() {
+            return appArrayList.size();
+        }
+        
+        // View Holder Class
+        class AppViewHolder extends RecyclerView.ViewHolder {
+
+            DataServices.App mApp;
+            AppListItemBinding mBinding;
+
+            public AppViewHolder(@NonNull AppListItemBinding binding) {
+                super(binding.getRoot());
+                mBinding = binding;
+                itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mListener.sendSelectedApp(mApp);
+                    }
+                });
+            }
+
+            void setupUI(DataServices.App app) {
+                mApp = app;
+                mBinding.textViewAppName.setText(mApp.getName());
+                mBinding.textViewArtistName.setText(mApp.getArtistName());
+                mBinding.textViewReleaseDate.setText(mApp.getReleaseDate());
+            }
+        }
+    }
+```
+
+
+### Removing/updating items of Strings:
+This can be done by updating list of objects and notifying adapter about uodates.
+```
+   listView.setOnItemClickListener((parent, view, position, id) -> {
+       User user = users.remove(position);
+       userArrayAdapter.notifyDataSetChanged();
+       Log.d("ListView", "Removed used " + users.get(position));
+   });
 ```
