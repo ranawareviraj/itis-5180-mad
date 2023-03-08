@@ -122,27 +122,79 @@ To allow http turn on this flag in AndroidManifest.xml under application tag.
 
 **Json Parsing**
 ```
+ResponseBody responseBody = response.body();
+String body = responseBody.string();
+
     try {
          JSONObject jsonObject = new JSONObject(body);
          Log.d("API", "onResponse: " + jsonObject);
-         JSONArray jsonArray  = jsonObject.getJSONArray(" ");
+         JSONArray personsArray  = jsonObject.getJSONArray("persons");
+         // Heere we can use loop to get all person objects. We'll simply get first object
+         JSONObject person = personsArray.getJSONObject(0);
+         
+         //Using getString(String key), we can retrieve bject properties
+         String name = person.getString("name");
          } catch (JSONException e) {
                throw new RuntimeException(e);
          }
 ```
 **Json Parsing - JSON**
 ```
-    try {
-         JSONObject jsonObject = new JSONObject(body);
-         Log.d("API", "onResponse: " + jsonObject);
-         JSONArray jsonArray  = jsonObject.getJSONArray(" ");
-         } catch (JSONException e) {
-               throw new RuntimeException(e);
-         }
-```
-**Json Parsing - GSON**
-```
-  Gson gson = new Gson();
-  Person person = gson.fromJson(responseBody.charStream(), Person.class);
+==> Persons JSON:
+{
+    "persons": [
+        {
+            "name": "Bob Smith",
+            "id": "80000001",
+            "age": 25,
+            "address": {
+                "line1": "32 Newport Lane",
+                "city": "Warren",
+                "state": "MI",
+                "zip": "48089"
+            }
+        }
+    ]
+}
 
+==> Person JSON:
+{
+     "name": "Bob Smith",
+     "id": "80000001",
+     "age": 25,
+     "address": {}
+}
 ```
+**Json Parsing - JAVA Objects**
+```
+public class Address{
+    public String line1;
+    public String city;
+    public String state;
+    public String zip;
+}
+
+public class Person{
+    public String name;
+    public String id;
+    public int age;
+    public Address address;
+}
+
+public class PersonsResponse{
+    public ArrayList<Person> persons;
+}
+``` 
+
+**Using GSON to parse JSON Object**
+```  
+Gson gson = new Gson();
+Person person = gson.fromJson(responseBody.charStream(), Person.class);
+```  
+
+**Using GSON to parse JSON Array**
+``` 
+  Gson gson = new Gson();
+  PersonsResponse persons = gson.fromJson(responseBody.charStream(), PersonsResponse.class);
+```
+Note: When using GSON, the java object properties should match with the json object properities.
