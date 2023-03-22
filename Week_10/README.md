@@ -86,7 +86,7 @@ dependencies {
     mAuth = FirebaseAuth.getInstance();
 ```
 - When a user signs in to your app, pass the user's email address and password to signInWithEmailAndPassword:
-
+	
 ```
     mAuth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
@@ -94,6 +94,24 @@ dependencies {
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
                         Log.d(TAG, "onComplete: " + " Login Successful.");
+                    	Log.d(TAG, "onComplete: " + " Login Successful using Email: " + mAuth.getCurrentUser().getEmail());
+                    } else {
+                        Log.d(TAG, "onFailure: " + task.getException().getMessage());
+                    }
+                }
+            });
+```
+
+## Sign up new user
+
+```	
+    mAuth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+                        Log.d(TAG, "onComplete: " + " Registration Successful.");
+                        Log.d(TAG, "onComplete: " + " Registration Successful using Email: " + mAuth.getCurrentUser().getEmail());
                     } else {
                         Log.d(TAG, "onFailure: " + task.getException().getMessage());
                     }
