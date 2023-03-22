@@ -56,4 +56,4 @@ dependencies {
   // https://firebase.google.com/docs/android/setup#available-libraries
 }
 ```
-
+- After adding the plug-in and the desired SDKs, sync your Android project with the Gradle files.
