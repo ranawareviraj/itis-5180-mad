@@ -57,3 +57,11 @@ dependencies {
 }
 ```
 - After adding the plug-in and the desired SDKs, sync your Android project with the Gradle files.
+	
+	
+## Email and Password Authentication
+- To Enable Email and Password Authentication, Go to Authentication -> Sign-In method -> Sign-in providers -> Enable Email/Password
+<img width="1336" alt="image" src="https://user-images.githubusercontent.com/112779376/226797124-8dffef5d-1a75-4dd9-b67c-eecd9837cde9.png">
+
+- Go to Docs for steps to follow:
+	https://firebase.google.com/docs/auth/android/start?hl=en&authuser=0
