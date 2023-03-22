@@ -10,7 +10,7 @@
 - Create Android Project
 - Follow steps on the Firebase console to connect Android project to the FireBase Project
 
-<img width="950" alt="image" src="https://user-images.githubusercontent.com/112779376/226796094-d3773221-d102-4784-8628-7335c14a586f.png">
+<img width="600" alt="image" src="https://user-images.githubusercontent.com/112779376/226796094-d3773221-d102-4784-8628-7335c14a586f.png">
 
 - Download google-services.json file and move it into your module (app-level) root directory.
 - Update Root-level (project-level) Gradle file (<project>/build.gradle):
