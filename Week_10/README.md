@@ -182,6 +182,7 @@ private void updateData() {
                     if (task.isSuccessful()) {
                         Log.d(TAG, "onComplete: " + "SUCCESS");
                     } else {
+			Log.d(TAG, "onComplete: " + "Failure");
                     }
                 }
             });
