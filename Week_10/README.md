@@ -171,7 +171,7 @@ dependencies {
     implementation "androidx.multidex:multidex:2.0.1"
 }
 ```
-- **Update data**
+- **Add data -  generate AUTO ID**
 ```
 private void updateData() {
     db.collection("contacts")
@@ -189,4 +189,24 @@ private void updateData() {
 }
 ```
 
+- **Add data -  Create document with specified ID**
+```
+        HashMap<String, Object> contact2 = new HashMap<>();
+        contact2.put("name", "Test User 2");
+        contact2.put("cell", "555-555-5555");
 
+        db.collection("contacts")
+                .document("SHDGGDYEW123sdwh")
+                .set(contact2)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.d(TAG, "onComplete: " + "SUCCESS");
+                        } else {
+                            Log.d(TAG, "onComplete: " + "Failure" + task.getException().getMessage());
+
+                        }
+                    }
+                });
+```
