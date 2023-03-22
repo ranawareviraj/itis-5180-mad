@@ -65,3 +65,15 @@ dependencies {
 
 - Go to Docs for steps to follow:
 	https://firebase.google.com/docs/auth/android/start?hl=en&authuser=0
+- Add Authentication to the App: In your module (app-level) Gradle file (usually <project>/<app-module>/build.gradle), add the dependency for the Firebase Authentication Android library.
+```
+dependencies {
+    // Import the BoM for the Firebase platform
+    implementation platform('com.google.firebase:firebase-bom:31.2.3')
+
+    // Add the dependency for the Firebase Authentication library
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation 'com.google.firebase:firebase-auth-ktx'
+}
+```
+- Click Sync now to download dependencies.
