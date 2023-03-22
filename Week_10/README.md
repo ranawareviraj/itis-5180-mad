@@ -227,3 +227,9 @@ private void updateData() {
                 }
             });
 ```
+	
+- Message to dispay when task is not successful 
+```
+Toast.makeText(getActivity(), task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+```
+
