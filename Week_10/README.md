@@ -58,8 +58,9 @@ dependencies {
 ```
 - After adding the plug-in and the desired SDKs, sync your Android project with the Gradle files.
 	
-	
+
 ## Email and Password Authentication
+
 - To Enable Email and Password Authentication, Go to Authentication -> Sign-In method -> Sign-in providers -> Enable Email/Password
 <img width="1336" alt="image" src="https://user-images.githubusercontent.com/112779376/226797124-8dffef5d-1a75-4dd9-b67c-eecd9837cde9.png">
 
@@ -77,3 +78,25 @@ dependencies {
 }
 ```
 - Click Sync now to download dependencies.
+
+## Login with Email and Password
+- In your sign-up activity's onCreate method (onCreateView() of fragment), get the shared instance of the FirebaseAuth object:
+```
+    private FirebaseAuth mAuth;
+    mAuth = FirebaseAuth.getInstance();
+```
+- When a user signs in to your app, pass the user's email address and password to signInWithEmailAndPassword:
+
+```
+    mAuth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+                        Log.d(TAG, "onComplete: " + " Login Successful.");
+                    } else {
+                        Log.d(TAG, "onFailure: " + task.getException().getMessage());
+                    }
+                }
+            });
+```
