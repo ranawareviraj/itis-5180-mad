@@ -135,7 +135,7 @@ dependencies {
 ```
 FirebaseFirestore db = FirebaseFirestore.getInstance();
 ```
-- Retrieve data using FireStore DB instance (db)
+- **Retrieve data using FireStore DB instance (db)**
 ```
     private void getData() {
         // [START get_all_contacts]
@@ -171,3 +171,21 @@ dependencies {
     implementation "androidx.multidex:multidex:2.0.1"
 }
 ```
+- **Update data**
+```
+private void updateData() {
+    db.collection("contacts")
+            .add(new Contact("Test", "444-444-4444"))
+            .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentReference> task) {
+                    if (task.isSuccessful()) {
+                        Log.d(TAG, "onComplete: " + "SUCCESS");
+                    } else {
+                    }
+                }
+            });
+}
+```
+
+
