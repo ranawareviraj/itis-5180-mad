@@ -156,3 +156,18 @@ FirebaseFirestore db = FirebaseFirestore.getInstance();
         // [END get_all_contacts]
     }
 ```
+
+- To avoid dex exception - Cannot fix requetsed classes in a single dex file, configure below in app.gradle
+```
+android {
+    defaultConfig {
+        ...
+        multiDexEnabled true
+    }
+}
+
+dependencies {
+    ...
+    implementation "androidx.multidex:multidex:2.0.1"
+}
+```
