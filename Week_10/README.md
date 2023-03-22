@@ -209,7 +209,7 @@ private void updateData() {
             });
 ```
 
-- **Add data -  Create document with specified ID**
+- **Add data -  Update spefific fields of the document provided**
 ```
     HashMap<String, Object> contact2 = new HashMap<>();
     contact2.put("cell", "555-555-5558");
