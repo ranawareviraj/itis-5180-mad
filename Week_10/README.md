@@ -120,6 +120,7 @@ dependencies {
 ```
 
 ## FireStore - Cloud DB
+- Add below dependencies in app build.gradle file.
 ```
 dependencies {
     // Import the BoM for the Firebase platform
@@ -129,4 +130,29 @@ dependencies {
     // When using the BoM, you don't specify versions in Firebase library dependencies
     implementation 'com.google.firebase:firebase-firestore'
 }
+```
+- Initialize an instance of Cloud Firestore:
+```
+FirebaseFirestore db = FirebaseFirestore.getInstance();
+```
+- Retrieve data using FireStore DB instance (db)
+```
+    private void getData() {
+        // [START get_all_contacts]
+        db.collection("contacts")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d(TAG, document.getId() + " => " + document.getData());
+                            }
+                        } else {
+                            Log.w(TAG, "Error getting documents.", task.getException());
+                        }
+                    }
+                });
+        // [END get_all_contacts]
+    }
 ```
