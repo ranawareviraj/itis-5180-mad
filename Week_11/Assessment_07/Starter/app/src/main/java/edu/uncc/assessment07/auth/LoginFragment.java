@@ -48,15 +48,15 @@ public class LoginFragment extends Fragment {
             public void onClick(View v) {
                 String email = binding.editTextEmail.getText().toString();
                 String password = binding.editTextPassword.getText().toString();
-                if(email.isEmpty()){
+                if (email.isEmpty()) {
                     Toast.makeText(getActivity(), "Enter valid email!", Toast.LENGTH_SHORT).show();
-                } else if (password.isEmpty()){
+                } else if (password.isEmpty()) {
                     Toast.makeText(getActivity(), "Enter valid password!", Toast.LENGTH_SHORT).show();
                 } else {
-                    FirebaseAuth.getInstance().signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
-                            if(task.isSuccessful()){
+                            if (task.isSuccessful()) {
                                 mListener.authSuccessful();
                             } else {
                                 Toast.makeText(getActivity(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
@@ -82,7 +82,7 @@ public class LoginFragment extends Fragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        if(context instanceof LoginListener){
+        if (context instanceof LoginListener) {
             mListener = (LoginListener) context;
         } else {
             throw new RuntimeException(context.toString() + " must implement LoginListener");
@@ -91,6 +91,7 @@ public class LoginFragment extends Fragment {
 
     public interface LoginListener {
         void createNewAccount();
+
         void authSuccessful();
     }
 }

@@ -13,7 +13,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.ListenerRegistration;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import org.w3c.dom.Comment;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import edu.uncc.assessment07.databinding.FragmentShoppingListBinding;
 import edu.uncc.assessment07.databinding.ShoppingListItemRowItemBinding;
@@ -47,6 +59,9 @@ public class ShoppingListFragment extends Fragment {
     FragmentShoppingListBinding binding;
     ArrayList<ShoppingListItem> shoppingListItems = new ArrayList<>();
     ShoppingListAdapter adapter;
+    ListenerRegistration listenerRegistration;
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -61,7 +76,6 @@ public class ShoppingListFragment extends Fragment {
         getActivity().setTitle("Shopping List");
 
         binding.textViewListName.setText(mShoppingList.getName());
-
 
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         adapter = new ShoppingListAdapter();
@@ -81,10 +95,25 @@ public class ShoppingListFragment extends Fragment {
         });
 
         //TODO: setup a snapshot listener to get the shopping list items
-
+        listenerRegistration = db.collection("shopping-lists").document(mShoppingList.getDocId())
+                .collection("shopping-list").addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                        if (error != null) {
+                            error.printStackTrace();
+                            return;
+                        }
+                        shoppingListItems.clear();
+                        for (QueryDocumentSnapshot doc : value) {
+                            ShoppingListItem item = doc.toObject(ShoppingListItem.class);
+                            shoppingListItems.add(item);
+                        }
+                        adapter.notifyDataSetChanged();
+                    }
+                });
     }
 
-    class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapter.ShoppingListViewHolder>{
+    class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapter.ShoppingListViewHolder> {
 
         @NonNull
         @Override
@@ -104,15 +133,16 @@ public class ShoppingListFragment extends Fragment {
             return shoppingListItems.size();
         }
 
-        class ShoppingListViewHolder extends RecyclerView.ViewHolder{
+        class ShoppingListViewHolder extends RecyclerView.ViewHolder {
             ShoppingListItemRowItemBinding mBinding;
             ShoppingListItem mShoppingListItem;
+
             public ShoppingListViewHolder(ShoppingListItemRowItemBinding itemBinding) {
                 super(itemBinding.getRoot());
                 this.mBinding = itemBinding;
             }
 
-            public void setupUI(ShoppingListItem shoppingListItem){
+            public void setupUI(ShoppingListItem shoppingListItem) {
                 mShoppingListItem = shoppingListItem;
                 mBinding.textViewItemName.setText(mShoppingListItem.getName());
                 mBinding.textViewQuantity.setText(String.valueOf(mShoppingListItem.getQuantity()));
@@ -120,14 +150,35 @@ public class ShoppingListFragment extends Fragment {
                 mBinding.imageViewAdd.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        if (mShoppingListItem != null) {
+                            HashMap<String, Object> updateData = new HashMap<>();
+                            updateData.put("quantity", FieldValue.increment(1));
+                            FirebaseFirestore.getInstance().collection("shopping-lists")
+                                    .document(mShoppingList.getDocId()).
+                                    collection("shopping-list")
+                                    .document(mShoppingListItem.docId).update(updateData);
+                        } else {
 
+                        }
                     }
                 });
 
                 mBinding.imageViewMinus.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        if (mShoppingListItem != null) {
+                            if (mShoppingListItem.getQuantity() > 1) {
+                                HashMap<String, Object> updateData = new HashMap<>();
+                                updateData.put("quantity", FieldValue.increment(-1));
+                                FirebaseFirestore.getInstance().collection("shopping-lists")
+                                        .document(mShoppingList.getDocId()).collection("shopping-list")
+                                        .document(mShoppingListItem.docId).update(updateData);
+                            } else {
+                                FirebaseFirestore.getInstance().collection("shopping-lists")
+                                        .document(mShoppingList.getDocId()).collection("shopping-list")
+                                        .document(mShoppingListItem.docId).delete();
+                            }
+                        }
                     }
                 });
             }
@@ -143,8 +194,9 @@ public class ShoppingListFragment extends Fragment {
         mListener = (ShoppingListListener) context;
     }
 
-    public interface ShoppingListListener{
+    public interface ShoppingListListener {
         void gotoAddListItem(ShoppingList shoppingList);
+
         void goBackToShoppingLists();
     }
 }

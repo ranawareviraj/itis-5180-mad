@@ -13,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -26,7 +28,7 @@ import java.util.ArrayList;
 import edu.uncc.assessment07.databinding.FragmentShoppingListsBinding;
 import edu.uncc.assessment07.databinding.ShoppingListRowItemBinding;
 import edu.uncc.assessment07.models.ShoppingList;
-
+import edu.uncc.assessment07.models.ShoppingListItem;
 
 public class ShoppingListsFragment extends Fragment {
     public ShoppingListsFragment() {
@@ -34,6 +36,7 @@ public class ShoppingListsFragment extends Fragment {
     }
 
     FragmentShoppingListsBinding binding;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentShoppingListsBinding.inflate(inflater, container, false);
@@ -42,9 +45,8 @@ public class ShoppingListsFragment extends Fragment {
 
     ArrayList<ShoppingList> shoppingLists = new ArrayList<>();
     ShopListsAdapter adapter;
-    ListenerRegistration listenerRegistration;
+    private ListenerRegistration listenerRegistration;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    ArrayList<ShoppingList> mShoppingLists = new ArrayList<>();
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     @Override
@@ -69,28 +71,26 @@ public class ShoppingListsFragment extends Fragment {
             }
         });
 
-        //TODO: setup a snapshot listener to get the shopping lists
-
         listenerRegistration = db.collection("shopping-lists")
+                .whereEqualTo("ownerId", FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                if(error != null){
-                    error.printStackTrace();
-                    return;
-                }
-                mShoppingLists.clear();
-                for (QueryDocumentSnapshot doc: value) {
-                    ShoppingList shoppingList = doc.toObject(ShoppingList.class);
-                    mShoppingLists.add(shoppingList);
-                }
-                adapter.notifyDataSetChanged();
-            }
-        });
-
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                        if (error != null) {
+                            error.printStackTrace();
+                            return;
+                        }
+                        shoppingLists.clear();
+                        for (QueryDocumentSnapshot doc : value) {
+                            ShoppingList shoppingList = doc.toObject(ShoppingList.class);
+                            shoppingLists.add(shoppingList);
+                        }
+                        adapter.notifyDataSetChanged();
+                    }
+                });
     }
 
-    class ShopListsAdapter extends RecyclerView.Adapter<ShopListsAdapter.ShopListsViewHolder>{
+    class ShopListsAdapter extends RecyclerView.Adapter<ShopListsAdapter.ShopListsViewHolder> {
         @NonNull
         @Override
         public ShopListsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -109,15 +109,16 @@ public class ShoppingListsFragment extends Fragment {
             return shoppingLists.size();
         }
 
-        class ShopListsViewHolder extends RecyclerView.ViewHolder{
+        class ShopListsViewHolder extends RecyclerView.ViewHolder {
             ShoppingListRowItemBinding mBinding;
             ShoppingList mShoppingList;
+
             public ShopListsViewHolder(ShoppingListRowItemBinding itemBinding) {
                 super(itemBinding.getRoot());
                 this.mBinding = itemBinding;
             }
 
-            public void setupUI(ShoppingList shoppingList){
+            public void setupUI(ShoppingList shoppingList) {
                 this.mShoppingList = shoppingList;
                 mBinding.textViewListName.setText(shoppingList.getName());
 
@@ -133,11 +134,47 @@ public class ShoppingListsFragment extends Fragment {
                     public void onClick(View v) {
                         //TODO: to delete the full shopping list.
                         //You will need to delete all the documents in the sub-collections then delete this document
+                        db.collection("shopping-lists").document(mShoppingList.
+                                        getDocId()).collection("shopping-list")
+                                .get()
+                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                        ArrayList<ShoppingListItem> items = new ArrayList<>();
+                                        if (task.isSuccessful()) {
+                                            for (QueryDocumentSnapshot doc : task.getResult()) {
+                                                ShoppingListItem item = doc.toObject(ShoppingListItem.class);
+                                                items.add(item);
+                                            }
+                                            deleteAllItems(items);
+                                        } else {
+
+                                        }
+                                    }
+                                });
                     }
                 });
             }
+
+            public void deleteAllItems(ArrayList<ShoppingListItem> items) {
+                while (items.size() > 0) {
+                    ShoppingListItem item = items.remove(0);
+                    db.collection("shopping-lists").
+                            document(mShoppingList.getDocId()).
+                            collection("shopping-list").
+                            document(item.getDocId()).delete()
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                }
+                            });
+                }
+                db.collection("shopping-lists").document(mShoppingList.getDocId()).delete();
+            }
         }
     }
+
+
     ShoppingListsFragmentListener mListener;
 
     @Override
@@ -149,16 +186,17 @@ public class ShoppingListsFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        if(listenerRegistration != null){
+        if (listenerRegistration != null) {
             listenerRegistration.remove();
             listenerRegistration = null;
         }
     }
 
-    public interface ShoppingListsFragmentListener{
+    public interface ShoppingListsFragmentListener {
         void logout();
+
         void gotoCreateNewList();
+
         void gotoShoppingList(ShoppingList shoppingList);
     }
-
 }

@@ -13,12 +13,31 @@ import android.view.ViewGroup;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.ListenerRegistration;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import org.w3c.dom.Comment;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import edu.uncc.assessment07.databinding.FragmentAddListItemBinding;
 import edu.uncc.assessment07.models.ShoppingList;
+import edu.uncc.assessment07.models.ShoppingListItem;
 
 public class AddListItemFragment extends Fragment {
     private static final String ARG_PARAM_SHOPPING_LIST = "ARG_PARAM_SHOPPING_LIST";
     private ShoppingList mShoppingList;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     public AddListItemFragment() {
         // Required empty public constructor
@@ -41,6 +60,7 @@ public class AddListItemFragment extends Fragment {
     }
 
     FragmentAddListItemBinding binding;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentAddListItemBinding.inflate(inflater, container, false);
@@ -80,13 +100,32 @@ public class AddListItemFragment extends Fragment {
                 String name = binding.editTextName.getText().toString();
                 int quantity = binding.seekBarQuantity.getProgress();
 
-                if(name.isEmpty()) {
+                if (name.isEmpty()) {
                     Toast.makeText(getActivity(), "Name is required", Toast.LENGTH_SHORT).show();
-                } else if(quantity == 0) {
+                } else if (quantity == 0) {
                     Toast.makeText(getActivity(), "Quantity must be greater than 0", Toast.LENGTH_SHORT).show();
                 } else {
                     //TODO: Add item to the list
+                    DocumentReference docRef = db
+                            .collection("shopping-lists")
+                            .document(mShoppingList.getDocId())
+                            .collection("shopping-list")
+                            .document();
 
+                    HashMap<String, Object> data = new HashMap<>();
+                    data.put("name", name);
+                    data.put("quantity", quantity);
+                    data.put("docId", docRef.getId());
+                    docRef.set(data).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if(task.isSuccessful()){
+                               mListener.addListItemDone();
+                            } else {
+                                Toast.makeText(getActivity(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
                 }
             }
         });
@@ -109,6 +148,7 @@ public class AddListItemFragment extends Fragment {
 
     public interface AddListItemListener {
         void addListItemDone();
+
         void addListItemCancel();
     }
 }

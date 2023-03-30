@@ -26,6 +26,7 @@ import edu.uncc.assessment07.databinding.FragmentCreateNewListBinding;
 
 public class CreateNewListFragment extends Fragment {
     FragmentCreateNewListBinding binding;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentCreateNewListBinding.inflate(inflater, container, false);
@@ -48,7 +49,7 @@ public class CreateNewListFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String listName = binding.editTextName.getText().toString();
-                if(listName.isEmpty()){
+                if (listName.isEmpty()) {
                     Toast.makeText(getActivity(), "Please enter a list name", Toast.LENGTH_SHORT).show();
                 } else {
                     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -61,11 +62,10 @@ public class CreateNewListFragment extends Fragment {
                     data.put("ownerId", auth.getCurrentUser().getUid());
                     data.put("docId", docRef.getId());
 
-
                     docRef.set(data).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
-                            if(task.isSuccessful()){
+                            if (task.isSuccessful()) {
                                 mListener.createNewListDone();
                             } else {
                                 Toast.makeText(getActivity(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
@@ -78,6 +78,7 @@ public class CreateNewListFragment extends Fragment {
     }
 
     CreateNewListListener mListener;
+
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
@@ -86,7 +87,7 @@ public class CreateNewListFragment extends Fragment {
 
     public interface CreateNewListListener {
         void createNewListDone();
+
         void createNewListCancel();
     }
-
 }
