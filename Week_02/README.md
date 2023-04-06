@@ -14,7 +14,7 @@ This module introduces Views and other basic concepts.
 
 
 **TextView**
-```
+```java
   // Initialize TextView
   TextView textViewWeight = findViewById(R.id.textViewWeightValue);
 
@@ -23,7 +23,7 @@ This module introduces Views and other basic concepts.
 ```
 
 **EditText**
-```
+```java
   // Initialize EditText
   EditText ticketPrice = findViewById(R.id.ticket_price_value);
 
@@ -35,7 +35,7 @@ This module introduces Views and other basic concepts.
 ```
 
 **Button**
-```
+```java
   // Handling button on click (inside onCreate())
   findViewById(R.id.AlertButton).setOnClickListener(new View.OnClickListener(){ @Override
     public void onClick(View v){
@@ -64,7 +64,7 @@ This module introduces Views and other basic concepts.
 ```
 
 **RadioGroup**
-```
+```java
   RadioGroup radioGroupGender.getCheckedRadioButtonId() == R.id.radioButtonMale
 
   //Check which radio group is checked
@@ -72,7 +72,7 @@ This module introduces Views and other basic concepts.
 ```
 
 **ImageView**
-```
+```java
    public class MainActivity extends AppCompatActivity {
       ImageView imageView;
 
@@ -94,7 +94,7 @@ This module introduces Views and other basic concepts.
 ```
 
 **SeekBar**
-```
+```java
   @Override
   protected void onCreate(Bundle savedInstanceState) {
       textViewSeekBar = findViewById(R.id.textViewSeekBar);
@@ -122,26 +122,26 @@ This module introduces Views and other basic concepts.
 
 ### Logging
 **LogD**
-```
+```java
   Log.d(TAG, "OnCreate: ");
 ```
 
 **Toast**
-```
+```java
   import android.widget.Toast;
 
   Toast.makeText(MainActivity.this, "Enter a valid ticket price",Toast.LENGTH_SHORT).show();
 ```
 
 **Set Title:**
-```
+```java
   {  
     setTitle("Main Activity");
   }
 ```
 
 **Alert Dialog**
-```
+```java
 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
 
 builder.setTitle("Error")
@@ -164,7 +164,7 @@ builder.setTitle("Error")
 ## Exceptions
 
 **NumberFormatException**
-```
+```java
     try {
         double weight = Double.valueOf(editTextWeight.getText().toString());
         if (weight > 0) {
