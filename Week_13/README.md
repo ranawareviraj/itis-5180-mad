@@ -3,6 +3,7 @@
 ### Author: Viraj Ranaware
 
 ## Important Classes:
+### SQLite Classes:
 **SQLiteOpenHelper:**
 - A helper class to manage database creation and version management.
 - This class contains a useful set of APIs for managing the database.
@@ -18,6 +19,7 @@
 - Exposes methods to manage a SQLite database.
 - SQLiteDatabase has methods to create, delete, execute SQL commands, and perform other common database management tasks.
 
+### Custom Classes:
 **Table Classess:**
 - This class corresponds to a table in the database.
 - It is used to perform the SQL operations required to. create and update a specific table. Example below:
