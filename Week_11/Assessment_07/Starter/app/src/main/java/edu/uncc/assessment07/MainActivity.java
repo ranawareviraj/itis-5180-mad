@@ -35,9 +35,9 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
 
     @Override
     public void createNewAccount() {
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.rootView, new SignUpFragment())
-                .commit();
+       getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.rootView, new SignUpFragment())
+                    .commit();
     }
 
     @Override

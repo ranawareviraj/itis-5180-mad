@@ -12,6 +12,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import edu.uncc.hw06.databinding.FragmentCreateForumBinding;
 
 public class CreateForumFragment extends Fragment {
@@ -20,6 +25,7 @@ public class CreateForumFragment extends Fragment {
     }
 
     FragmentCreateForumBinding binding;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentCreateForumBinding.inflate(inflater, container, false);
@@ -43,12 +49,13 @@ public class CreateForumFragment extends Fragment {
             public void onClick(View v) {
                 String title = binding.editTextForumTitle.getText().toString();
                 String desc = binding.editTextForumDesc.getText().toString();
-                if(title.isEmpty()){
+                if (title.isEmpty()) {
                     Toast.makeText(getActivity(), "Title cannot be empty", Toast.LENGTH_SHORT).show();
-                } else if(desc.isEmpty()){
+                } else if (desc.isEmpty()) {
                     Toast.makeText(getActivity(), "Description cannot be empty", Toast.LENGTH_SHORT).show();
                 } else {
-
+                    FirebaseFirestore db = FirebaseFirestore.getInstance();
+                    db.collection("forums").add(new Forum(title, desc, FirebaseAuth.getInstance().getCurrentUser().getUid()));mListener.doneCreateForum();
                 }
             }
         });
@@ -63,8 +70,9 @@ public class CreateForumFragment extends Fragment {
         mListener = (CreateForumListener) context;
     }
 
-    interface CreateForumListener{
+    interface CreateForumListener {
         void cancelCreateForum();
+
         void doneCreateForum();
     }
 
