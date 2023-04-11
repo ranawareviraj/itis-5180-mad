@@ -40,7 +40,24 @@
 <img width="844" alt="image" src="https://user-images.githubusercontent.com/112779376/231277688-74712705-8b7e-4d2d-9030-e348a092d68c.png">
 <img width="863" alt="image" src="https://user-images.githubusercontent.com/112779376/231277855-86109726-003e-4717-8b49-2615603829b1.png">
 
+**Getting Object from a Cursor**
+<img width="1080" alt="image" src="https://user-images.githubusercontent.com/112779376/231278613-1e82bdde-bb28-4787-9a93-806a37bd8272.png">
 
+**Data Manager**
+- This is a wrapper class that connects the designed classes.
+- It is used to 
+ - create or update the database.
+ - maintain the database instance
+ - call different access classes for the different tables.
+ - close the DB connection.
+
+<img width="504" alt="image" src="https://user-images.githubusercontent.com/112779376/231279177-c2ac3b35-1a40-46fd-a881-cbf4d6ac3a9e.png">
+
+### Inspecting the SQLite DB:
+- The database application is stored in a file in the emulator folder:  
+  "/data/data/<package_name>/databases/<database_name>"
+- This file can be downloaded and viewed in DB browser for SQLite: [SQLite Broswer](https://sqlitebrowser.org/)
+  
 ```
 
 ```
