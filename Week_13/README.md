@@ -6,11 +6,11 @@
 **SQLiteOpenHelper:**
 - A helper class to manage database creation and version management.
 - This class contains a useful set of APIs for managing the database.
-- onCreate(SQLiteDatabase db): Called when the database is created for the first time (i.e if database does not exist).This is where the creation of tables and the initial population of the tables should happen.
-- onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion): Called when the database needs to be upgraded.(DB version passed is heigher than the current version)
+- **onCreate**(SQLiteDatabase db): Called when the database is created for the first time (i.e if database does not exist).This is where the creation of tables and the initial population of the tables should happen.
+- **onUpgrade**(SQLiteDatabase db, int oldVersion, int newVersion): Called when the database needs to be upgraded.(DB version passed is heigher than the current version)
 - SQLiteOpenHelper instance will be used to get database instance:
- - getWritableDatabase(): to perfrom read/write operations
- - getReadableDatabase(): to perfrom read only operations
+ - **getWritableDatabase()**: to perfrom read/write operations
+ - **getReadableDatabase()**: to perfrom read only operations
 - To use this class, create a DB Helper class which extends SQLiteOpenHelper, override onCreate() and onUpgrade() methods
 <img width="722" alt="image" src="https://user-images.githubusercontent.com/112779376/231275733-40cb9cef-eb88-4653-a960-4eb28a45a601.png">
 
