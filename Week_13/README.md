@@ -41,7 +41,8 @@
 <img width="863" alt="image" src="https://user-images.githubusercontent.com/112779376/231277855-86109726-003e-4717-8b49-2615603829b1.png">
 
 **Getting Object from a Cursor**
-<img width="1080" alt="image" src="https://user-images.githubusercontent.com/112779376/231278613-1e82bdde-bb28-4787-9a93-806a37bd8272.png">
+
+<img width="569" alt="image" src="https://user-images.githubusercontent.com/112779376/231280476-43ede0e1-79bf-4ec8-a4b4-0722c8af9e9a.png">
 
 **Data Manager**
 - This is a wrapper class that connects the designed classes.
