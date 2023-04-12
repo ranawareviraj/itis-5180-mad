@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">sqlite-demo</string>
+    <string name="new_game">Start New Game</string>
+    <string name="help">Help</string>
 </resources>

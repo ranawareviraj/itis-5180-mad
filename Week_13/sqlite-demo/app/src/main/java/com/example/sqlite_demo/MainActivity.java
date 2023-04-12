@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.widget.TextView;
 
 import java.util.List;
@@ -38,5 +40,12 @@ public class MainActivity extends AppCompatActivity {
         List<Note> notes = db.noteDao().getAllNotes();
         textView.setText(notes.toString());
         db.noteDao().getAllNotes();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.game_menu, menu);
+        return true;
     }
 }
