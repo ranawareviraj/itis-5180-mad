@@ -80,7 +80,7 @@ dependencies {
 }
 ```
 ### Components:
-- There are three major components in Room:
+There are three major components in Room:
  - **Database**
  - **Entity**
  - **Dao**   
