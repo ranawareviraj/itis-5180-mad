@@ -63,9 +63,19 @@
   - Android Studio -> View -> Tool Window -> Device File Explorer
   
 - This file can be downloaded and viewed in DB browser for SQLite: [SQLite Broswer](https://sqlitebrowser.org/)
-  
-```
 
+## Using Room Database Library:
+- The Room persistence library provides an abstraction layer over SQLite to allow fluent database access
+- To use Room in your app, add the following dependencies to your app's build.gradle file:
+```groovy
+ext {
+    roomVersion = '2.5.1'
+}
+dependencies {
+    // room-library
+    implementation("androidx.room:room-runtime:$roomVersion")
+    annotationProcessor("androidx.room:room-compiler:$roomVersion")
+}
 ```
 
 
