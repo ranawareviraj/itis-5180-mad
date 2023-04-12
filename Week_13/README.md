@@ -58,7 +58,10 @@
 
 ### Inspecting the SQLite DB:
 - The database application is stored in a file in the emulator folder:  
-  "/data/data/<package_name>/databases/<database_name>"
+  "/data/data/<package_name>/databases/<database_name>".  
+  
+  - Android Studio -> View -> Tool Window -> Device File Explorer
+  
 - This file can be downloaded and viewed in DB browser for SQLite: [SQLite Broswer](https://sqlitebrowser.org/)
   
 ```
