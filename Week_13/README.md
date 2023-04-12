@@ -168,3 +168,29 @@ interface NoteDao {
     @Query("SELECT * FROM note WHERE _id IN = (:notes)")
     List<Note> findByIds(List<Note> notes);
 ```
+### Using Room Database:
+**Using Room Database in Activity**
+```java
+  // Create Instance of AppDatabase in onCreate() method
+  AppDatabase db = Room.databaseBuilder(this, AppDatabase.class, "notes_db")
+        .allowMainThreadQueries()
+        .fallbackToDestructiveMigration()
+        .build();
+        
+ // Use AppDatabase instance (db) to get Dao objects and perform db operations
+ db.noteDao().deleteAll();
+ db.noteDao().insertAll(new Note("Note 1", "This is note 1"), new Note("Note 2", "This is note 2"));
+```
+
+**Using Room Database in Fragments**
+```java
+  // Create Instance of AppDatabase in onCreate() method
+  AppDatabase db = Room.databaseBuilder(getContext(), AppDatabase.class, "notes_db")
+        .allowMainThreadQueries()
+        .fallbackToDestructiveMigration()
+        .build();
+        
+ // Use AppDatabase instance (db) to get Dao objects and perform db operations
+ db.noteDao().deleteAll();
+ db.noteDao().insertAll(new Note("Note 1", "This is note 1"), new Note("Note 2", "This is note 2"));
+```
