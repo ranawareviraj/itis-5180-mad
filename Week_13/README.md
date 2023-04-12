@@ -155,8 +155,8 @@ interface NoteDao {
 }
 ```
 - There are two types of DAO methods that define database interactions:
- - **Convenience methods**: insert(@Insert), update(@Update), and delete(@Delete) rows
- - **Query methods**: Write your own SQL query to interact with the database. This can be SELECT or any other valid SQLite query.
+   - **Convenience methods**: insert(@Insert), update(@Update), and delete(@Delete) rows
+   - **Query methods**: Write your own SQL query to interact with the database. This can be SELECT or any other valid SQLite query.
 
 **Pass simple parameters to a query**:
 ```java
