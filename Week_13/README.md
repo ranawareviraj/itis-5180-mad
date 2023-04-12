@@ -66,6 +66,8 @@
 
 ## Using Room Database Library:
 - The Room persistence library provides an abstraction layer over SQLite to allow fluent database access
+
+### Setup:
 - To use Room in your app, add the following dependencies to your app's build.gradle file:
 ```groovy
 ext {
@@ -77,5 +79,92 @@ dependencies {
     annotationProcessor("androidx.room:room-compiler:$roomVersion")
 }
 ```
+### Components:
+- There are three major components in Room:
+ - **Database**
+ - **Entity**
+ - **Dao**   
 
+**Database**: 
+ - It is a class that holds the database and serves as the main access point for the underlying connection to your app's persisted data.
+ - The database class provides the app with instances of the DAOs associated with that database. 
+```java
+@Database(entities = {Note.class}, version = 1)
+public abstract class AppDatabase extends RoomDatabase {
+    //Methods to get instances of DAO's
+    public abstract NoteDao noteDao();
+}
+```
 
+**Entity**:
+- These are classes that represent tables in your app's database.  
+- Each entity corresponds to a table in the associated Room database, and 
+- Each instance of an entity represents a row of data in the corresponding table.
+- We define each Room entity as a class annotated with **@Entity**.
+**Entity Class**
+```java
+@Entity(tableName = "note")
+public class Note {
+    @PrimaryKey(autoGenerate = true)
+    public long _id;
+
+    @ColumnInfo
+    public String subject;
+
+    @ColumnInfo
+    public String note;
+    
+    public Note(long _id, String subject, String note) {...}
+
+    public Note(String subject, String note) {...}
+    
+    // getters and setters
+}
+```
+**Dao**:
+- We interact with the stored data by defining data access objects, or DAOs.
+- They provide methods that your app can use to query, update, insert, and delete data in the database.
+- Each DAO includes methods that offer abstract access to your app's database. At compile time, Room automatically generates implementations of the DAOs that you define
+- We can define each DAO as **either** an **interface** or an **abstract** class.
+- We must always annotate our DAOs with @Dao
+
+```
+@Dao
+interface NoteDao {
+
+    @Insert
+    void insert(Note note);
+
+    @Insert
+    void insertAll(Note... notes);
+
+    @Query("SELECT * FROM note")
+    List<Note> getAllNotes();
+
+    @Query("SELECT * FROM note WHERE _id = :id")
+    Note findById(long id);
+
+    @Update
+    void update(Note note);
+
+    @Delete
+    void delete(Note note);
+
+    @Query("DELETE FROM note")
+    void deleteAll();
+}
+```
+- There are two types of DAO methods that define database interactions:
+ - **Convenience methods**: insert(@Insert), update(@Update), and delete(@Delete) rows
+ - **Query methods**: Write your own SQL query to interact with the database. This can be SELECT or any other valid SQLite query.
+
+**Pass simple parameters to a query**:
+```sql
+    @Query("SELECT * FROM note WHERE _id = :id")
+    Note findById(long id);
+```
+**Pass a collection of parameters to a query**
+```sql
+    @Query("SELECT * FROM note WHERE _id IN = (:notes)")
+    List<Note> findByIds(List<Note> notes);
+```
