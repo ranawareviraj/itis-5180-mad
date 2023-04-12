@@ -69,7 +69,7 @@
 
 ### Setup:
 - To use Room in your app, add the following dependencies to your app's build.gradle file:
-```groovy
+```java
 ext {
     roomVersion = '2.5.1'
 }
@@ -128,7 +128,7 @@ public class Note {
 - We can define each DAO as **either** an **interface** or an **abstract** class.
 - We must always annotate our DAOs with @Dao
 
-```
+```java
 @Dao
 interface NoteDao {
 
@@ -159,12 +159,12 @@ interface NoteDao {
  - **Query methods**: Write your own SQL query to interact with the database. This can be SELECT or any other valid SQLite query.
 
 **Pass simple parameters to a query**:
-```sql
+```java
     @Query("SELECT * FROM note WHERE _id = :id")
     Note findById(long id);
 ```
 **Pass a collection of parameters to a query**
-```sql
+```java
     @Query("SELECT * FROM note WHERE _id IN = (:notes)")
     List<Note> findByIds(List<Note> notes);
 ```
