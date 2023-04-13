@@ -40,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
         List<Note> notes = db.noteDao().getAllNotes();
         textView.setText(notes.toString());
         db.noteDao().getAllNotes();
+
+
     }
 
     @Override

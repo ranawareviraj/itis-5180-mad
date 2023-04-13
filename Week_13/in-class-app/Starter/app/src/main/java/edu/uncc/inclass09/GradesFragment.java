@@ -62,7 +62,7 @@ public class GradesFragment extends Fragment {
         setHasOptionsMenu(true);
         calculateGPA();
 
-        loadDataAndUpdateView();
+            loadDataAndUpdateView();
     }
 
     void loadDataAndUpdateView() {
@@ -150,13 +150,15 @@ public class GradesFragment extends Fragment {
 
             public void setupUI(Grade grade) {
                 this.mGrade = grade;
-                mBinding.textViewCourseHours.setText(mGrade.getCourseHours() + "Credit Hours");
+                mBinding.textViewCourseHours.setText(mGrade.getCourseHours() + " Credit Hours");
                 mBinding.textViewCourseName.setText(mGrade.getCourseName());
                 mBinding.textViewCourseLetterGrade.setText(mGrade.getLetterGrade());
                 mBinding.textViewCourseNumber.setText(mGrade.getCourseNumber());
                 mBinding.imageViewDelete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        mGrade.setLetterGrade("B");
+                        db.gradeDao().update(mGrade);
                         db.gradeDao().deleteGrade(mGrade);
                         loadDataAndUpdateView();
                     }
