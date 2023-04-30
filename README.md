@@ -193,7 +193,7 @@ This module explains Activity Lifecycle and how to share data between multiple A
 
 ## Activity Lifecycle
 **Activity Lifecycle Methods**
-```
+```java
   @Override
   protected void onResume() {
     super.onResume();
@@ -222,7 +222,7 @@ This module explains Activity Lifecycle and how to share data between multiple A
 ## Intent
 
 **Explicit Intent**
-```
+```java
 // Go to Next page
   Intent intent = new Intent(MainActivity.this, SecondActivity.class);
   startActivity(intent);
@@ -230,7 +230,7 @@ This module explains Activity Lifecycle and how to share data between multiple A
 
 
 **Implicit Intent**
-  ```
+  ```java
   // In Source Activivity class
   Intent intent = new Intent("com.example.practiceapp.intent.action.View");
   intent.addCategory(Intent.CATEGORY_DEFAULT);
@@ -246,19 +246,19 @@ This module explains Activity Lifecycle and how to share data between multiple A
 
 ### 1. Pass data in KEY-VALUE Format
 **Data to pass**
-  ```
+  ```java
   final static public String NAME_KEY = "Name";
   ```
 
 **Pass Data using Intent - in source activity**
-  ```
+  ```java
   Intent intent = new IntenMainActivity.this, SecondActivity.class);
   intent.putExtra(NAME_KEY, "Viraj Ranaware");
   String name = getIntent().getStringExtra(MainActivity.NAME_KEY);
   ```
 
 **Recieve data - in target activity**
-  ```
+  ```java
   if(getIntent() != null && getIntent().getExtras() != null && getIntent().hasExtra("Name")){
     String name = getIntent().getStringExtra(MainActivity.NAME_KEY);
     nameText.setText(name);
@@ -267,7 +267,7 @@ This module explains Activity Lifecycle and how to share data between multiple A
 
 ### 2. Pass serializable - object
 **Data to pass - User**
-  ```
+  ```java
   class User implements Serializable{
     String name;
     int age;
@@ -280,7 +280,7 @@ This module explains Activity Lifecycle and how to share data between multiple A
   ```
 
 **Pass Data using Intent - in source activity**
-  ```
+  ```java
   Intent intent = new IntenMainActivity.this, SecondActivity.class);
   User user = new User("Viraj Ranaware", 28)
   intent.putExtra(User_KEY, user);
@@ -290,7 +290,7 @@ This module explains Activity Lifecycle and how to share data between multiple A
   ```
 
 **Recieve data - in target activity**
-  ```
+  ```java
   if (getIntent() != null && getIntent().getExtras() != null && getIntent().hasExtra(NAME_KEY)){
     User user = (User) getIntent().getSerializableExtra(USER_KEY);
     String name = user.name;
@@ -304,14 +304,14 @@ This module explains Activity Lifecycle and how to share data between multiple A
 
 
 **Data to pass - List of Serializable Objects**
-  ```
+  ```java
   ArrayList<User> users = new ArrayList<>();
   users.add(new User("Alice", 22));
   users.add(new User("Bob", 24));
   ```
 
  **Pass Data using Intent - in source activity**
-  ```
+  ```java
   public void onClick(View v) {
     Intent intent = new IntenMainActivity.this, SecondActivity.class);
     //Pass List
@@ -325,7 +325,7 @@ This module explains Activity Lifecycle and how to share data between multiple A
     }
   ```
 **Recieve data - in target activity**
-  ```
+  ```java
   // Retrieving List<Object>
     if (getIntent() != null && getIntent().getExtras() != null && getIntent().hasExtra(USERS_KEY)){
       List<User> users = (List<User>) getIntent().getSerializableExtra(USERS_KEY);
@@ -341,7 +341,7 @@ This module explains Activity Lifecycle and how to share data between multiple A
   ### 1. Start Activity for result (Deprecated)
 
   **startActivityForResult - In Original Activity**  
-  ```
+  ```java
     // Start Activity for result
       @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -369,7 +369,7 @@ This module explains Activity Lifecycle and how to share data between multiple A
     }
   ```
   **startActivityForResult - In Second Activity**  
-  ```
+  ```java
   // Send data back
   buttonGoBack.setOnClickListener(view -> {
      Intent intent = new Intent();
@@ -390,7 +390,7 @@ This module explains Activity Lifecycle and how to share data between multiple A
   ### 2. Using ActivityResultContract
 
 **ActivityResultContract - In Original Activity**  
-  ```
+  ```java
   ActivityResultLauncher<Intent> startForSetProfile = registerForActivityResult(
     new ActivityResultContracts.StartActivityForResult(),
     new ActivityResultCallback<ActivityResult>() {
@@ -418,7 +418,7 @@ In most cases, view binding replaces findViewById.
 To enable View Binding add below snnipet in build.gradle file.
 
 **Enabling View Binding**
-```
+```java
     android {
         ...
         buildFeatures {
@@ -434,7 +434,7 @@ To set up an instance of the binding class for use with an activity, perform the
     Step 2. Get a reference to the root view by calling the getRoot() method
     Step 3. Pass it to setContentView() to make it the active view on the screen.
  
- ```
+ ```java
     private MainActivityBinding binding;
 
     @Override
@@ -446,7 +446,7 @@ To set up an instance of the binding class for use with an activity, perform the
     }
  ```
 **Using Binding to reference any of the view**
- ```
+ ```java
     // Using binding for a TextView
      binding.getName().setText(viewModel.getName());
      
@@ -460,14 +460,14 @@ Note: With binding we dont need to specify view type.
 
 ### Use view binding in fragments
 To set up an instance of the binding class for use with a fragment, perform the following steps in the fragment's onCreateView() method:
- ```
+ ```java
     Step 1. Call the static inflate() method of the binding class to create an instance of the binding class for the fragment to use.
     Step 2. Get a reference to the root view by calling the getRoot() method.
     Step 3. Return the root view from the onCreateView() method to make it the active view on the screen.
  ```
  
 **Using View Binding in Fragments**
- ```
+ ```java
     private ResultProfileBinding binding;
 
     @Override
@@ -495,7 +495,7 @@ Use FragmentContainerView in the Design and select appropriate Fragment class.
 
 
 **2. Adding programmatically**
- ```    
+ ```java    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -508,7 +508,7 @@ Use FragmentContainerView in the Design and select appropriate Fragment class.
  ```
 ### Fragment Methods
 **onCreate()** 
- ```
+ ```java
    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -516,7 +516,7 @@ Use FragmentContainerView in the Design and select appropriate Fragment class.
  ```
  
  **onCreateView() : initialize binding, return content root** 
- ```
+ ```java
 FragmentFirstBinding binding;
 
     @Override
@@ -528,7 +528,7 @@ FragmentFirstBinding binding;
  ```
  
  **onViewCreated() : Logic to work with the fragment** 
- ```
+ ```java
  @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -541,7 +541,7 @@ FragmentFirstBinding binding;
     }
  ```
  **onAttach() - called when Fragment is attached to the Activity**
- ```
+ ```java
   @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);                    // context = Activity
@@ -549,7 +549,7 @@ FragmentFirstBinding binding;
  ```
  ### Sending Data from Fragment to Activity
 This is done using an interface.
-```
+```java
     Step 1: Define interface(Listener) in the Fragment
     Step 2: Activity implemnts the Interface
     Step 3: In the fragment, cast context(activity) to listener.
@@ -558,14 +558,14 @@ This is done using an interface.
 ```
 
 **Step 1: Define interface in the Fragment**
- ```
+ ```java
      public interface FirstListener {
         void sendUsername(String username);
     }
  ```
 
 **Step 2: Activity implemnts the Interface**
-```
+```java
      public class MainActivity extends AppCompatActivity implements FirstFragment.FirstListener {
          @Override
         public void sendUsername(String username) {
@@ -574,7 +574,7 @@ This is done using an interface.
      }
 ```
 **Step 3: In the fragment, cast context(activity) to listener.**
-```
+```java
     FirstListener fListener;
 
     @Override
@@ -584,7 +584,7 @@ This is done using an interface.
     }
 ```
 **Step 4: User listner to send data back.**
-```
+```java
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -597,14 +597,14 @@ This is done using an interface.
     }
 ```
 **Step 5: Capture data in the activity - Step 3 can be extended if needed**
-```
+```java
     @Override
     public void sendUsername(String username) {
         Log.d(TAG, "sendUsername: " + username);
     }
 ```
 ### Sending Data from Fragment to Activity - Objects
-```
+```java
 //  Step 1: Define interface(Listener) in the Fragment
      public interface FirstListener {
             void sendProfile(Profile profile);
@@ -650,14 +650,14 @@ This is done using an interface.
 ### We can use interface method to replace Fragment
 
 **In First Fragment - Interface has goToSecondFragment() method**
-```
+```java
     public interface FirstListener {
         void sendUsername(String username);
         void goToSecondFragment();
     }
 ```
 **In MainActivty - implement goToSecondFragment() method to replace Fragment with Second Fragment**
-```
+```java
     @Override
     public void goToSecondFragment() {
         getSupportFragmentManager()
@@ -676,7 +676,7 @@ Displays a vertically-scrollable collection of views, where each view is positio
 
 ### ListView of Strings:
 **Creating simple ListView**
-```
+```java
   public class MainActivity extends AppCompatActivity {
       @Override
       protected void onCreate(Bundle savedInstanceState) {
@@ -694,7 +694,7 @@ Displays a vertically-scrollable collection of views, where each view is positio
 ```
 
 **Adding listener to ListView elements**
-```
+```java
   listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
               @Override
               public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -706,7 +706,7 @@ Displays a vertically-scrollable collection of views, where each view is positio
 ### ListView of Objects:
 
 **User Object**
-```
+```java
   public class User {
       String name;
       int age;
@@ -718,7 +718,7 @@ Displays a vertically-scrollable collection of views, where each view is positio
   }  
 ```
 **Displaying ListView of Object - Simple ListView**
-```
+```java
   public class MainActivity extends AppCompatActivity {
       @Override
       protected void onCreate(Bundle savedInstanceState) {
@@ -745,7 +745,7 @@ Displays a vertically-scrollable collection of views, where each view is positio
   }  
 ```
 **Using Binding with simple ListViews**
-```
+```java
     AppListItemBinding itemBinding;
 
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -758,7 +758,7 @@ Displays a vertically-scrollable collection of views, where each view is positio
 ```
 
 **Displaying ListView of Object - RecyclerView**
-```
+```java
    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         appArrayList = DataServices.getAppsByCategory(mCategory);
@@ -820,7 +820,7 @@ Displays a vertically-scrollable collection of views, where each view is positio
 
 ### Removing/updating items of Strings:
 This can be done by updating list of objects and notifying adapter about uodates.
-```
+```java
    listView.setOnItemClickListener((parent, view, position, id) -> {
        User user = users.remove(position);
        userArrayAdapter.notifyDataSetChanged();
@@ -835,12 +835,12 @@ Welcome to the itis-5180-mad wiki! This repository contains all basics of Androi
 
 ## Giving internet persmissions
 Update below configuration in AndroidManifest.xml.
-```
+```java
 <uses-permission android:name="android.permission.INTERNET"></uses-permission>
 ```
 
 **Making request**
-```
+```java
  protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -850,12 +850,12 @@ Update below configuration in AndroidManifest.xml.
 ```
 
 **Create OkHttpClient**
-```
+```java
 private final OkHttpClient client = new OkHttpClient();
 ```
 
 **Set Response callback listener for client**
-```
+```java
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
@@ -875,20 +875,20 @@ private final OkHttpClient client = new OkHttpClient();
 If we dont enque response and use it in main thred directly, app throws android.os.NetworkOnMainThreadException.
 
 To allow http turn on this flag in AndroidManifest.xml under application tag.
- ```
+ ```java
  <application
     android:usesCleartextTraffic="true"
  </application
  ```
  **Build complex URL String**
- ```
+ ```java
     HttpUrl url = HttpUrl.parse("https://www.theappsdr.com").newBuilder()
             .addPathSegment("contacts")
             .addPathSegment("json")
             .build();
  ```
   **Build complex URL String - using builder**
-  ```
+  ```java
   HttpUrl.Builder builder = new HttpUrl.Builder();
   HttpUrl url = builder.scheme("https")
           .host("www.theappsdr.com")
@@ -898,7 +898,7 @@ To allow http turn on this flag in AndroidManifest.xml under application tag.
  ```
 
 **Sending POST Request**
- ```
+ ```java
  private final OkHttpClient client = new OkHttpClient();
 
     @Override
@@ -940,7 +940,7 @@ To allow http turn on this flag in AndroidManifest.xml under application tag.
  ```
 
 **Updating UI after Async API Response**
-```
+```java
  runOnUiThread(new Runnable() {
      @Override
      public void run() {
@@ -950,7 +950,7 @@ To allow http turn on this flag in AndroidManifest.xml under application tag.
 ```
 
 **Json Parsing**
-```
+```java
 ResponseBody responseBody = response.body();
 String body = responseBody.string();
 
@@ -968,7 +968,7 @@ String body = responseBody.string();
          }
 ```
 **Json Parsing - JSON**
-```
+```java
 ==> Persons JSON:
 {
     "persons": [
@@ -995,7 +995,7 @@ String body = responseBody.string();
 }
 ```
 **Json Parsing - JAVA Objects**
-```
+```java
 public class Address{
     public String line1;
     public String city;
@@ -1016,13 +1016,13 @@ public class PersonsResponse{
 ``` 
 
 **Using GSON to parse JSON Object**
-```  
+```java
 Gson gson = new Gson();
 Person person = gson.fromJson(responseBody.charStream(), Person.class);
 ```  
 
 **Using GSON to parse JSON Array**
-``` 
+```java 
   Gson gson = new Gson();
   PersonsResponse persons = gson.fromJson(responseBody.charStream(), PersonsResponse.class);
 ```
@@ -1043,7 +1043,7 @@ Note: When using GSON, the java object properties should match with the json obj
 
 - Download google-services.json file and move it into your module (app-level) root directory.
 - Update Root-level (project-level) Gradle file (<project>/build.gradle):
-```
+```java
 buildscript {
   repositories {
     // Make sure that you have the following two repositories
@@ -1065,7 +1065,7 @@ allprojects {
 }
 ```
 - Update Module (app-level) Gradle file (<project>/<app-module>/build.gradle):
-```
+```java
 plugins {
   id 'com.android.application'
 
@@ -1096,7 +1096,7 @@ dependencies {
 - Go to Docs for steps to follow:
 	https://firebase.google.com/docs/auth/android/start?hl=en&authuser=0
 - Add Authentication to the App: In your module (app-level) Gradle file (usually <project>/<app-module>/build.gradle), add the dependency for the Firebase Authentication Android library.
-```
+```java
 dependencies {
     // Import the BoM for the Firebase platform
     implementation platform('com.google.firebase:firebase-bom:31.2.3')
@@ -1110,13 +1110,13 @@ dependencies {
 
 ## Login with Email and Password
 - In your sign-up activity's onCreate method (onCreateView() of fragment), get the shared instance of the FirebaseAuth object:
-```
+```java
     private FirebaseAuth mAuth;
     mAuth = FirebaseAuth.getInstance();
 ```
 - When a user signs in to your app, pass the user's email address and password to signInWithEmailAndPassword:
 	
-```
+```java
     mAuth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                 @Override
@@ -1133,7 +1133,7 @@ dependencies {
 
 ## Sign up new user
 
-```	
+```java	
     mAuth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                 @Override
@@ -1150,7 +1150,7 @@ dependencies {
 
 ## FireStore - Cloud DB
 - Add below dependencies in app build.gradle file.
-```
+```java
 dependencies {
     // Import the BoM for the Firebase platform
     implementation platform('com.google.firebase:firebase-bom:31.2.3')
@@ -1161,11 +1161,11 @@ dependencies {
 }
 ```
 - Initialize an instance of Cloud Firestore:
-```
+```java
 FirebaseFirestore db = FirebaseFirestore.getInstance();
 ```
 - **Retrieve data using FireStore DB instance (db)**
-```
+```java
     private void getData() {
         // [START get_all_contacts]
         db.collection("contacts")
@@ -1187,7 +1187,7 @@ FirebaseFirestore db = FirebaseFirestore.getInstance();
 ```
 
 - To avoid dex exception - Cannot fix requetsed classes in a single dex file, configure below in app.gradle
-```
+```java
 android {
     defaultConfig {
         ...
@@ -1201,7 +1201,7 @@ dependencies {
 }
 ```
 - **Add data -  generate AUTO ID**
-```
+```java
 private void updateData() {
     db.collection("contacts")
             .add(new Contact("Test", "444-444-4444"))
@@ -1219,7 +1219,7 @@ private void updateData() {
 ```
 
 - **Add data -  Create document with specified ID**
-```
+```java
     HashMap<String, Object> contact2 = new HashMap<>();
     contact2.put("name", "Test User 2");
     contact2.put("cell", "555-555-5555");
@@ -1239,7 +1239,7 @@ private void updateData() {
 ```
 
 - **Add data -  Update spefific fields of the document provided**
-```
+```java
     HashMap<String, Object> contact2 = new HashMap<>();
     contact2.put("cell", "555-555-5558");
     db.collection("contacts")
@@ -1258,7 +1258,7 @@ private void updateData() {
 ```
 	
 - Message to dispay when task is not successful 
-```
+```java
 Toast.makeText(getActivity(), task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
 ```
 
